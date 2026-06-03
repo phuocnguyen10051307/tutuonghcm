@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mật Mã Đông Dương - Khởi Động</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #111424;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden;
+            background-image: radial-gradient(circle, #1a203d 0%, #111424 100%);
+        }
+
+        /* Container chính */
+        .welcome-container {
+            text-align: center;
+            max-width: 700px;
+            padding: 40px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        h1 {
+            color: #ffcc00;
+            font-size: 42px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            text-shadow: 0 4px 10px rgba(255, 204, 0, 0.3);
+        }
+
+        .subtitle {
+            color: #ff9900;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .intro-text {
+            color: #ccc;
+            font-size: 16px;
+            line-height: 1.7;
+            margin-bottom: 40px;
+            text-align: justify;
+        }
+
+        .intro-text strong {
+            color: #fff;
+        }
+
+        /* Khu vực nút bấm */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .menu-btn {
+            padding: 14px 35px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+        }
+
+        .btn-start {
+            background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+            color: #111424;
+            border: none;
+        }
+
+        .btn-start:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 153, 0, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .btn-guide {
+            background: transparent;
+            color: #ffcc00;
+            border: 2px solid #ffcc00;
+        }
+
+        .btn-guide:hover {
+            background: rgba(255, 204, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 204, 0, 0.2);
+        }
+
+        /* ---- POPUP HƯỚNG DẪN LUẬT CHƠI ---- */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .popup-guide {
+            background: #ffffff;
+            color: #333;
+            width: 90%;
+            max-width: 600px;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transform: translateY(-20px);
+            transition: transform 0.3s ease;
+        }
+
+        .overlay.active .popup-guide {
+            transform: translateY(0);
+        }
+
+        .popup-header {
+            text-align: center;
+            color: #d32f2f;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #f5f5f5;
+            padding-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .popup-body {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+        }
+
+        .popup-body h3 {
+            color: #111424;
+            margin: 15px 0 8px 0;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .popup-body ul {
+            padding-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .popup-body li {
+            margin-bottom: 5px;
+        }
+
+        .highlight-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffb300;
+            padding: 10px 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-style: italic;
+        }
+
+        .popup-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .close-btn {
+            background: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 30px;
+            font-size: 15px;
+            font-weight: bold;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .close-btn:hover {
+            background: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="welcome-container">
+        <h1>Mật Mã Đông Dương</h1>
+        <div class="subtitle">Giải Mã & Tầm Nhìn</div>
+        
+        <div class="intro-text">
+            Chào mừng các đội chơi đến với <strong>Vòng 2: Mật mã Đông Dương</strong>. Trước mắt các bạn là một "Bức tranh lịch sử" lớn mang ý nghĩa thời đại nhưng đang bị che khuất hoàn toàn bởi các ô mảnh ghép nhỏ. Trò chơi mô phỏng lại quá trình hoạt động bí mật, đầy gian truân của các bậc tiền bối cách mạng: phải kiên trì gom nhặt, giải mã từng dữ kiện thực tiễn ở các ô nhỏ để từ đó nhìn ra bức tranh toàn cảnh của thời cuộc. Hãy chứng minh đội của bạn sở hữu một "tầm nhìn" xuất sắc nhất!
+        </div>
+
+        <div class="btn-group">
+            <button class="menu-btn btn-guide" onclick="openGuide()">Hướng dẫn chơi</button>
+            <button class="menu-btn btn-start" onclick="startGame()">Bắt đầu ngay ➔</button>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay-guide">
+        <div class="popup-guide">
+            <div class="popup-header">Luật Chơi Vòng 2</div>
+            <div class="popup-body">
+                <p><strong>Mục tiêu:</strong> Lật mở các ô số, trả lời câu hỏi để tìm ra từ khóa tên của "Bức tranh lịch sử" đang ẩn giấu phía sau.</p>
+                
+                <h3>📌 1. Giải mã ô nhỏ</h3>
+                <ul>
+                    <li>Lưới game gồm <strong>9 ô mảnh ghép</strong>. Mỗi ô chứa một câu hỏi được phân cấp độ khó khác nhau (tương ứng với số điểm 100đ, 200đ, 300đ).</li>
+                    <li>Trả lời <strong>ĐÚNG</strong>: Ô đỏ biến mất, hé lộ một góc bức tranh lớn và bạn nhận được điểm cùng phần quà ngẫu nhiên (bánh, kẹo, snack...).</li>
+                    <li>Trả lời <strong>SAI</strong>: Ô đỏ không mở ra, bạn không nhận được điểm và có thể chịu mức phạt trừ phần trăm số điểm hiện có của đội.</li>
+                </ul>
+
+                <h3>🎯 2. Đoán bức tranh lớn (Mật mã tổng)</h3>
+                <ul>
+                    <li>Bất kỳ lúc nào nếu tự tin có <strong>"Tầm nhìn thời cuộc"</strong>, đội chơi có thể nhập từ khóa để giải mã toàn bộ bức tranh ngay lập tức tại ô nhập phía trên.</li>
+                    <li>Nếu đoán <strong>CHÍNH XÁC</strong>: Toàn bộ các ô đỏ sẽ tự động lật mở, đội chơi giành chiến thắng tối đa và kết thúc màn chơi để tiến vào trang tiếp theo.</li>
+                </ul>
+
+                <div class="highlight-box">
+                    ⚠️ <strong>Lưu ý quan trọng:</strong> Cơ chế đoán bức tranh lớn là một quyết định mạo hiểm. Hãy chắc chắn trước khi nhấn "Giải mã ngay" vì nếu sai, đội chơi có thể bị tước quyền đi tiếp hoặc nhận điểm phạt rất nặng!
+                </div>
+            </div>
+            <div class="popup-footer">
+                <button class="close-btn" onclick="closeGuide()">Đã Hiểu Luật</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Hàm chuyển hướng sang file index.html khi nhấn Bắt đầu
+        function startGame() {
+            window.location.href = "index.html"; 
+        }
+
+        // Các hàm đóng mở Popup Hướng dẫn
+        const overlayGuide = document.getElementById('overlay-guide');
+
+        function openGuide() {
+            overlayGuide.classList.add('active');
+        }
+
+        function closeGuide() {
+            overlayGuide.classList.remove('active');
+        }
+
+        // Đóng popup nếu người chơi click ra ngoài vùng trắng
+        overlayGuide.addEventListener('click', function(e) {
+            if (e.target === overlayGuide) {
+                closeGuide();
+            }
+        });
+    </script>
+</body>
+</html>
