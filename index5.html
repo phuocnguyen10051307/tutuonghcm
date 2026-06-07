@@ -162,6 +162,15 @@
             pointer-events: none;
         }
 
+        /* KHI Ô BỊ SAI: Đổi sang màu đen đặc che hoàn toàn ảnh nền và khóa click */
+        .red-cover.black {
+            background: #000000 !important;
+            color: #ff4d4d !important;
+            cursor: not-allowed !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+        }
+
         /* ---- POPUP CÂU HỎI & THÔNG BÁO ---- */
         .overlay {
             position: fixed;
@@ -357,7 +366,8 @@
             { question: "Bác Hồ đã viết bản Di chúc lịch sử bắt đầu từ năm nào?", answers: ["1960", "1965", "1968", "1969"], correct: 1, score: 300, gift: "1 snack", penalty: "10%" }
         ];
 
-        const currentQuestionSet = [...anh5_NuocNga]; 
+        const currentQuestionSet = [...anh5_NuocNga];
+        const wrongCells = new Set();
 
         const grid = document.getElementById('grid');
         const overlay = document.getElementById('overlay');
@@ -376,7 +386,11 @@
             cover.classList.add('red-cover');
             cover.innerText = i;
             
-            cover.addEventListener('click', function() {
+            cover.addEventListener('click', function(e) {
+                if (wrongCells.has(i - 1)) {
+                    e.stopPropagation();
+                    return;
+                }
                 openQuestion(i - 1, cover);
             });
 
@@ -484,7 +498,7 @@
                 const submitBtn = document.getElementById('submit-btn');
                 submitBtn.innerText = "Sai rồi! Đóng câu hỏi";
                 submitBtn.style.background = '#555';
-                submitBtn.setAttribute('onclick', 'closePopup()');
+                submitBtn.setAttribute('onclick', 'handleWrongAnswer()');
             }
         }
 
@@ -492,6 +506,15 @@
             if (currentCoverElement) {
                 currentCoverElement.classList.add('fade-out');
                 setTimeout(() => { currentCoverElement.remove(); }, 400);
+            }
+            closePopup();
+        }
+
+        function handleWrongAnswer() {
+            if (currentCoverElement) {
+                currentCoverElement.classList.add('black');
+                currentCoverElement.innerText = '✖';
+                wrongCells.add(currentCellIndex);
             }
             closePopup();
         }
@@ -534,10 +557,12 @@
             const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD).toLowerCase().replace(/\s+/g, '');
 
             if (cleanUserGuess === cleanCorrectAnswer) {
-                // Thắng cuộc: Mở toàn bộ các mảnh ghép gợn sóng dần dần
+                // Thắng cuộc: Gỡ bỏ toàn bộ tất cả mảnh ghép (kể cả ô đen hay ô đỏ)
                 const allCovers = document.querySelectorAll('.red-cover');
                 allCovers.forEach((cov, index) => {
                     setTimeout(() => {
+                        cov.style.pointerEvents = 'none';
+                        cov.classList.remove('black');
                         cov.classList.add('fade-out');
                         setTimeout(() => { cov.remove(); }, 400);
                     }, index * 80);

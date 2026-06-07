@@ -162,6 +162,15 @@
             pointer-events: none;
         }
 
+        /* KHI Ô BỊ SAI: Đổi sang màu đen đặc che hoàn toàn ảnh nền và khóa click */
+        .red-cover.black {
+            background: #000000 !important;
+            color: #ff4d4d !important;
+            cursor: not-allowed !important;
+            opacity: 1 !important;
+            pointer-events: none !important;
+        }
+
         /* ---- POPUP CÂU HỎI & THÔNG BÁO ---- */
         .overlay {
             position: fixed;
@@ -359,7 +368,8 @@
             { question: "Bác Hồ đã viết cuốn 'Lịch sử nước ta' bằng thể thơ lục bát tại Pác Bó vào năm nào?", answers: ["1941", "1942", "1943", "1945"], correct: 0, score: 300, gift: "1 snack", penalty: "0%" }
         ];
 
-        const currentQuestionSet = [...anh3_PacBo]; 
+        const currentQuestionSet = [...anh3_PacBo];
+        const wrongCells = new Set();
 
         const grid = document.getElementById('grid');
         const overlay = document.getElementById('overlay');
@@ -378,7 +388,11 @@
             cover.classList.add('red-cover');
             cover.innerText = i;
             
-            cover.addEventListener('click', function() {
+            cover.addEventListener('click', function(e) {
+                if (wrongCells.has(i - 1)) {
+                    e.stopPropagation();
+                    return;
+                }
                 openQuestion(i - 1, cover);
             });
 
@@ -492,7 +506,7 @@
                 const submitBtn = document.getElementById('submit-btn');
                 submitBtn.innerText = "Sai rồi! Đóng câu hỏi";
                 submitBtn.style.background = '#555';
-                submitBtn.setAttribute('onclick', 'closePopup()');
+                submitBtn.setAttribute('onclick', 'handleWrongAnswer()');
             }
         }
 
@@ -500,6 +514,15 @@
             if (currentCoverElement) {
                 currentCoverElement.classList.add('fade-out');
                 setTimeout(() => { currentCoverElement.remove(); }, 400);
+            }
+            closePopup();
+        }
+
+        function handleWrongAnswer() {
+            if (currentCoverElement) {
+                currentCoverElement.classList.add('black');
+                currentCoverElement.innerText = '✖';
+                wrongCells.add(currentCellIndex);
             }
             closePopup();
         }
@@ -551,6 +574,8 @@
                 const allCovers = document.querySelectorAll('.red-cover');
                 allCovers.forEach((cov, index) => {
                     setTimeout(() => {
+                        cov.style.pointerEvents = 'none';
+                        cov.classList.remove('black');
                         cov.classList.add('fade-out');
                         setTimeout(() => { cov.remove(); }, 400);
                     }, index * 80);
