@@ -389,118 +389,107 @@
 
       // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 3) ---
       const anh3_PacBo = [
-        // CÂU DỄ (1 -> 4)
-        {
-          question:
-            "Khu di tích Pác Bó là nơi Bác Hồ sống và làm việc sau khi về nước, thuộc tỉnh nào của Việt Nam?",
-          answers: ["Lạng Sơn", "Cao Bằng", "Hà Giang", "Tuyên Quang"],
-          correct: 1,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "10%",
-        },
-        {
-          question:
-            "Tại khu di tích Pác Bó, hang nơi Bác Hồ từng sống và làm việc có tên gọi là gì?",
-          answers: ["Hang Các Mác", "Hang Cốc Bó", "Hang Pác Bó", "Hang Ngườm"],
-          correct: 1,
-          score: 100,
-          gift: "Không có thưởng",
-          penalty: "0%",
-        },
-        {
-          question:
-            "Suối chảy qua khu di tích Pác Bó được Bác Hồ đặt tên là suối gì?",
-          answers: ["Suối Cấm", "Suối Lê-nin", "Suối Mác", "Suối Đồng"],
-          correct: 1,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "30%",
-        },
-        {
-          question:
-            "Ngày Bác Hồ về nước sau 30 năm bôn ba (28/1/1941) diễn ra tại địa điểm nào?",
-          answers: [
-            "Pác Bó (Cao Bằng)",
-            "Tân Trào (Tuyên Quang)",
-            "Chiến khu Việt Bắc",
-            "Cửa khẩu Móng Cái",
-          ],
-          correct: 0,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "0%",
-        },
+  // CÂU DỄ (3 câu gốc Nha Rồng + 1 câu nhận từ Tuyên Ngôn)
+  {
+    question: "Bác Hồ ra đi tìm đường cứu nước tại địa điểm nào?",
+    answers: ["Bến Bạch Đằng", "Bến Nhà Rồng", "Bến Nghé", "Bến Chương Dương"],
+    correct: 1,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "0%",
+  },
+  {
+    question: "Nguyễn Ái Quốc tham gia tổ chức chính trị nào tại Pháp, đánh dấu bước chuyển từ chủ nghĩa yêu nước đến với chủ nghĩa cộng sản?",
+    answers: [
+      "Đánh dấu tại Đại hội Tua tham gia thành lập Đảng Cộng sản Pháp",
+      "Đảng Xã hội Pháp",
+      "Công đoàn Pháp",
+      "Quốc dân Đảng Pháp",
+    ],
+    correct: 0,
+    score: 100,
+    gift: "Không có thưởng",
+    penalty: "20%",
+  },
+  {
+    question: "Nguyễn Tất Thành làm công việc gì trên tàu Amiral Latouche-Tréville khi bắt đầu hành trình ra đi tìm đường cứu nước?",
+    answers: ["Thủy thủ", "Phụ bếp", "Thợ máy", "Nhân viên phục vụ"],
+    correct: 1,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "0%",
+  },
+  {
+    // Nhận từ anh2_TuyenNgon lẻ ra
+    question: "Thuật ngữ 'Tư tưởng Hồ Chí Minh' được xây dựng trên nền tảng triết học nào?",
+    answers: ["Triết học phương Đông", "Triết học Hy Lạp cổ đại", "Chủ nghĩa Mác - Lênin", "Tư tưởng Nho giáo"],
+    correct: 2,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "10%",
+  },
 
-        // CÂU TRUNG BÌNH (5 -> 7)
-        {
-          question: "Tại Pác Bó, Bác Hồ đã sáng tác bài thơ nổi tiếng nào?",
-          answers: [
-            "Cảnh rừng Pác Bó",
-            "Tức cảnh Pác Bó",
-            "Chiều tối",
-            "Rằm tháng giêng",
-          ],
-          correct: 1,
-          score: 200,
-          gift: "2 kẹo",
-          penalty: "20%",
-        },
-        {
-          question:
-            "Tại khu di tích Pác Bó, việc Bác Hồ đặt tên núi Các Mác và suối Lênin thể hiện tư tưởng nào?",
-          answers: [
-            "Tư tưởng yêu thiên nhiên và lao động",
-            "Tư tưởng cách mạng vô sản, gắn với chủ nghĩa Mác - Lênin",
-            "Tư tưởng dân tộc chủ nghĩa thuần túy",
-            "Tư tưởng quân sự hóa vùng căn cứ",
-          ],
-          correct: 1,
-          score: 200,
-          gift: "Không có thưởng",
-          penalty: "40%",
-        },
-        {
-          question:
-            "Bí danh “Nguyễn Ái Quốc” gắn liền với hoạt động nào của Hồ Chí Minh?",
-          answers: [
-            "Hoạt động tìm đường cứu nước và hoạt động tại Pháp",
-            "Lãnh đạo khởi nghĩa giành chính quyền trong nước",
-            "Chỉ đạo kháng chiến chống Mỹ",
-            "Công tác xây dựng kinh tế sau hòa bình",
-          ],
-          correct: 0,
-          score: 200,
-          gift: "1 bánh",
-          penalty: "0%",
-        },
+  // CÂU TRUNG BÌNH (2 câu gốc Nha Rồng + 1 câu nhận từ Tuyên Ngôn)
+  {
+    question: "Câu nói: 'Dù phải đốt cháy cả dãy Trường Sơn cũng phải giành cho được độc lập' thể hiện điều gì trong tư tưởng của Hồ Chí Minh?",
+    answers: [
+      "Tinh thần quyết tâm giành độc lập dân tộc",
+      "Tinh thần phát triển kinh tế",
+      "Tinh thần đoàn kết quốc tế",
+      "Tinh thần học tập khoa học kỹ thuật",
+    ],
+    correct: 0,
+    score: 200,
+    gift: "2 kẹo",
+    penalty: "30%",
+  },
+  {
+    question: "Khi nghiên cứu Cách mạng tư sản Mỹ (1776) và Cách mạng tư sản Pháp (1789), Hồ Chí Minh đánh giá các cuộc cách mạng đó như thế nào?",
+    answers: ["Thắng lợi trọn vẹn", "Chưa đến nơi", "Không thành công", "Phản động"],
+    correct: 1,
+    score: 200,
+    gift: "1 bánh",
+    penalty: "0%",
+  },
+  {
+    // Nhận từ anh2_TuyenNgon lẻ ra
+    question: "Trong lời mở đầu bản Tuyên ngôn Độc lập, Bác Hồ đã khẳng định: 'Tất cả mọi người đều sinh ra có quyền ...' - quyền gì?",
+    answers: ["Tự do và mưu cầu hạnh phúc", "Sống và làm việc", "Bình đẳng và tự do", "Mưu cầu hạnh phúc"],
+    correct: 0,
+    score: 200,
+    gift: "Không có thưởng",
+    penalty: "40%",
+  },
 
-        // CÂU KHÓ (8 -> 9)
-        {
-          question:
-            "Khu di tích Pác Bó ngày nay thuộc xã nào, huyện nào của tỉnh Cao Bằng?",
-          answers: [
-            "Xã Hưng Đạo, huyện Hà Quảng",
-            "Xã Trường Hà, huyện Hà Quảng",
-            "Xã Pác Bó, huyện Bảo Lạc",
-            "Xã Đình Phong, huyện Trùng Khánh",
-          ],
-          correct: 1,
-          score: 300,
-          gift: "2 kẹo",
-          penalty: "10%",
-        },
-        {
-          question:
-            "Bác Hồ đã viết cuốn 'Lịch sử nước ta' bằng thể thơ lục bát tại Pác Bó vào năm nào?",
-          answers: ["1941", "1942", "1943", "1945"],
-          correct: 0,
-          score: 300,
-          gift: "1 snack",
-          penalty: "0%",
-        },
-      ];
-
+  // CÂU KHÓ (1 câu gốc Nha Rồng + 1 câu nhận từ Tuyên Ngôn)
+  {
+    question: "Nguyễn Ái Quốc đã thay mặt tổ chức nào để gửi Bản yêu sách của nhân dân An Nam tới Hội nghị Vécxay?",
+    answers: [
+      "Hội những người Việt Nam yêu nước tại Pháp",
+      "Hội Liên hiệp thuộc địa",
+      "Hội Việt Nam Cách mạng Thanh niên",
+      "Hội Liên hiệp các dân tộc bị áp bức",
+    ],
+    correct: 0,
+    score: 300,
+    gift: "1 bánh + 1 kẹo",
+    penalty: "10%",
+  },
+  {
+    // Nhận từ anh2_TuyenNgon lẻ ra
+    question: "Câu nói 'Nước Việt Nam có quyền hưởng tự do và độc lập, và sự thật đã thành một nước tự do, độc lập' được Bác Hồ trích dẫn từ văn kiện nào?",
+    answers: [
+      "Lời kêu gọi toàn quốc kháng chiến",
+      "Tuyên ngôn Độc lập 2/9/1945",
+      "Thư gửi Liên Hợp Quốc",
+      "Báo cáo chính trị tại Đại hội Đảng lần II",
+    ],
+    correct: 1,
+    score: 300,
+    gift: "1 snack",
+    penalty: "0%",
+  },
+];
       const currentQuestionSet = [...anh3_PacBo];
       const wrongCells = new Set();
 

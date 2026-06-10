@@ -388,134 +388,98 @@
       let isGameWon = false; // Theo dõi trạng thái hoàn thành màn chơi
 
       // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 4) ---
-      const anh4_TrongCay = [
-        // CÂU DỄ (1 -> 4)
-        {
-          question:
-            "Phong trào “Tết trồng cây” do Chủ tịch Hồ Chí Minh phát động nhằm mục đích gì?",
-          answers: [
-            "Phát triển nông nghiệp và bảo vệ môi trường",
-            "Tăng sản lượng công nghiệp",
-            "Cải tổ giáo dục",
-            "Tăng cường quân sự hóa đất nước",
-          ],
-          correct: 0,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "0%",
-        },
-        {
-          question:
-            "Câu nói “Mùa xuân là Tết trồng cây, làm cho đất nước càng ngày càng xuân” của Chủ tịch Hồ Chí Minh gắn liền với phong trào nào?",
-          answers: [
-            "Phong trào diệt giặc đói",
-            "Phong trào “Tết trồng cây”",
-            "Phong trào Bình dân học vụ",
-            "Phong trào thi đua ái quốc",
-          ],
-          correct: 1,
-          score: 100,
-          gift: "Không có thưởng",
-          penalty: "20%",
-        },
-        {
-          question:
-            "Bác Hồ thường nhắc nhở nhân dân trồng cây phải đi đôi với việc gì để đạt hiệu quả?",
-          answers: [
-            "Chặt bớt cây cũ",
-            "Chăm sóc và bảo vệ cây",
-            "Bán lấy gỗ ngay",
-            "Khai hoang đất rừng bừa bãi",
-          ],
-          correct: 1,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "10%",
-        },
-        {
-          question:
-            "Phong trào Tết trồng cây lần đầu tiên được Bác Hồ phát động vào dịp Tết năm nào?",
-          answers: [
-            "Tết Canh Tý 1960",
-            "Tết Kỷ Hợi 1959",
-            "Tết Nhâm Dần 1962",
-            "Tết Giáp Thìn 1964",
-          ],
-          correct: 0,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "0%",
-        },
+      const anh4_TrongCay =  [
+  // CÂU DỄ (3 câu gốc Pác Bó + 1 câu nhận từ Trồng Cây)
+  {
+    question: "Khu di tích Pác Bó là nơi Bác Hồ sống và làm việc sau khi về nước, thuộc tỉnh nào của Việt Nam?",
+    answers: ["Lạng Sơn", "Cao Bằng", "Hà Giang", "Tuyên Quang"],
+    correct: 1,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "10%",
+  },
+  {
+    question: "Tại khu di tích Pác Bó, hang nơi Bác Hồ từng sống và làm việc có tên gọi là gì?",
+    answers: ["Hang Các Mác", "Hang Cốc Bó", "Hang Pác Bó", "Hang Ngườm"],
+    correct: 1,
+    score: 100,
+    gift: "Không có thưởng",
+    penalty: "0%",
+  },
+  {
+    question: "Suối chảy qua khu di tích Pác Bó được Bác Hồ đặt tên là suối gì?",
+    answers: ["Suối Cấm", "Suối Lê-nin", "Suối Mác", "Suối Đồng"],
+    correct: 1,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "30%",
+  },
+  {
+    // Nhận từ anh4_TrongCay lẻ ra
+    question: "Phong trào Tết trồng cây lần đầu tiên được Bác Hồ phát động vào dịp Tết năm nào?",
+    answers: ["Tết Canh Tý 1960", "Tết Kỷ Hợi 1959", "Tết Nhâm Dần 1962", "Tết Giáp Thìn 1964"],
+    correct: 0,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "0%",
+  },
 
-        // CÂU TRUNG BÌNH (5 -> 7)
-        {
-          question:
-            "Bài báo đầu tiên Bác Hồ viết để phát động phong trào Tết trồng cây mang tiêu đề gì và đăng trên báo Nhân Dân?",
-          answers: [
-            "Cảnh rừng Việt Bắc",
-            "Tết trồng cây",
-            "Bảo vệ môi sinh",
-            "Trồng cây hai miền",
-          ],
-          correct: 1,
-          score: 200,
-          gift: "2 kẹo",
-          penalty: "20%",
-        },
-        {
-          question:
-            "Địa điểm cuối cùng Bác Hồ đến tham gia trồng cây cùng nhân dân vào ngày mùng 1 Tết Kỷ Dậu (1969) là ở đâu?",
-          answers: [
-            "Xã Vật Lại, huyện Ba Vì, Hà Nội",
-            "Đình Cổ Loa, Đông Anh, Hà Nội",
-            "Công viên Thống Nhất, Hà Nội",
-            "Khu di tích Đá Chông (K9)",
-          ],
-          correct: 0,
-          score: 200,
-          gift: "Không có thưởng",
-          penalty: "40%",
-        },
-        {
-          question:
-            "Bác Hồ đã ký họa và lấy bí danh gì khi viết bài báo phát động phong trào 'Tết trồng cây' năm 1959?",
-          answers: ["Nguyễn Ái Quốc", "Trần Lực", "T.L.", "Chiến Thắng"],
-          correct: 2,
-          score: 200,
-          gift: "1 bánh",
-          penalty: "0%",
-        },
+  // CÂU TRUNG BÌNH (2 câu gốc Pác Bó + 1 câu nhận từ Trồng Cây)
+  {
+    question: "Tại Pác Bó, Bác Hồ đã sáng tác bài thơ nổi tiếng nào?",
+    answers: ["Cảnh rừng Pác Bó", "Tức cảnh Pác Bó", "Chiều tối", "Rằm tháng giêng"],
+    correct: 1,
+    score: 200,
+    gift: "2 kẹo",
+    penalty: "20%",
+  },
+  {
+    question: "Tại khu di tích Pác Bó, việc Bác Hồ đặt tên núi Các Mác và suối Lênin thể hiện tư tưởng nào?",
+    answers: [
+      "Tư tưởng yêu thiên nhiên và lao động",
+      "Tư tưởng cách mạng vô sản, gắn với chủ nghĩa Mác - Lênin",
+      "Tư tưởng dân tộc chủ nghĩa thuần túy",
+      "Tư tưởng quân sự hóa vùng căn cứ",
+    ],
+    correct: 1,
+    score: 200,
+    gift: "Không có thưởng",
+    penalty: "40%",
+  },
+  {
+    // Nhận từ anh4_TrongCay lẻ ra
+    question: "Bác Hồ đã ký họa và lấy bí danh gì khi viết bài báo phát động phong trào 'Tết trồng cây' năm 1959?",
+    answers: ["Nguyễn Ái Quốc", "Trần Lực", "T.L.", "Chiến Thắng"],
+    correct: 2,
+    score: 200,
+    gift: "1 bánh",
+    penalty: "0%",
+  },
 
-        // CÂU KHÓ (8 -> 9)
-        {
-          question:
-            "Trong bài viết về Tết trồng cây, Bác Hồ đã tính toán lợi ích kinh tế nào rất cụ thể cho đất nước sau vài năm?",
-          answers: [
-            "Nguồn thu từ việc xuất khẩu trái cây",
-            "Số tiền lớn từ gỗ kiến thiết và độ che phủ rừng",
-            "Sản lượng lương thực tăng vọt",
-            "Tạo ra nhiều khu vui chơi giải trí",
-          ],
-          correct: 1,
-          score: 300,
-          gift: "2 kẹo",
-          penalty: "10%",
-        },
-        {
-          question:
-            "Hưởng ứng lời kêu gọi của Bác, trong giai đoạn 1960 - 1965, toàn miền Bắc đã trồng được khoảng bao nhiêu triệu cây các loại?",
-          answers: [
-            "Khoảng 100 triệu cây",
-            "Khoảng 300 triệu cây",
-            "Khoảng 575 triệu cây",
-            "Khoảng 1 tỷ cây",
-          ],
-          correct: 2,
-          score: 300,
-          gift: "1 snack",
-          penalty: "0%",
-        },
-      ];
+  // CÂU KHÓ (1 câu gốc Pác Bó + 1 câu nhận từ Trồng Cây)
+  {
+    question: "Khu di tích Pác Bó ngày nay thuộc xã nào, huyện nào của tỉnh Cao Bằng?",
+    answers: [
+      "Xã Hưng Đạo, huyện Hà Quảng",
+      "Xã Trường Hà, huyện Hà Quảng",
+      "Xã Pác Bó, huyện Bảo Lạc",
+      "Xã Đình Phong, huyện Trùng Khánh",
+    ],
+    correct: 1,
+    score: 300,
+    gift: "2 kẹo",
+    penalty: "10%",
+  },
+  {
+    // Nhận từ anh4_TrongCay lẻ ra
+    question: "Hưởng ứng lời kêu gọi của Bác, trong giai đoạn 1960 - 1965, toàn miền Bắc đã trồng được khoảng bao nhiêu triệu cây các loại?",
+    answers: ["Khoảng 100 triệu cây", "Khoảng 300 triệu cây", "Khoảng 575 triệu cây", "Khoảng 1 tỷ cây"],
+    correct: 2,
+    score: 300,
+    gift: "1 snack",
+    penalty: "0%",
+  },
+];
 
       const currentQuestionSet = [...anh4_TrongCay];
       const wrongCells = new Set();

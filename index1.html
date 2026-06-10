@@ -385,128 +385,123 @@
       let isGameWon = false; // Biến kiểm tra trạng thái thắng cuộc
 
       // --- NGÂN HÀNG CÂU HỎI ---
-      const anh1_NhaRong = [
-        {
-          question: "Bác Hồ ra đi tìm đường cứu nước tại địa điểm nào?",
-          answers: [
-            "Bến Bạch Đằng",
-            "Bến Nhà Rồng",
-            "Bến Nghé",
-            "Bến Chương Dương",
-          ],
-          correct: 1,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "0%",
-        },
-        {
-          question:
-            "Con tàu đưa người thanh niên Nguyễn Tất Thành rời bến Nhà Rồng có tên là gì?",
-          answers: [
-            "Đô đốc Latouche Tréville",
-            "Amiral Latouche Tréville",
-            "Đô đốc De Latouche",
-            "Amiral De La Touche",
-          ],
-          correct: 1,
-          score: 100,
-          gift: "Không có thưởng",
-          penalty: "20%",
-        },
-        {
-          question:
-            "Bản Yêu sách 8 điểm của Nguyễn Ái Quốc gửi tới Hội nghị Vécxay (1919) đòi quyền gì cho nhân dân Việt Nam?",
-          answers: [
-            "Quyền tự trị",
-            "Quyền độc lập",
-            "Quyền giải phóng dân tộc",
-            "Quyền tự do, dân chủ tối thiểu",
-          ],
-          correct: 3,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "0%",
-        },
-        {
-          question:
-            "Nguyễn Ái Quốc tham gia tổ chức chính trị nào tại Pháp, đánh dấu bước chuyển từ chủ nghĩa yêu nước đến với chủ nghĩa cộng sản?",
-          answers: [
-            "Đánh dấu tại Đại hội Tua tham gia thành lập Đảng Cộng sản Pháp",
-            "Đảng Xã hội Pháp",
-            "Công đoàn Pháp",
-            "Quốc dân Đảng Pháp",
-          ],
-          correct: 0,
-          score: 100,
-          gift: "1 kẹo",
-          penalty: "10%",
-        },
-        {
-          question:
-            "Khi nghiên cứu Cách mạng tư sản Mỹ (1776) và Cách mạng tư sản Pháp (1789), Hồ Chí Minh đánh giá các cuộc cách mạng đó như thế nào?",
-          answers: [
-            "Thắng lợi trọn vẹn",
-            "Chưa đến nơi",
-            "Không thành công",
-            "Phản động",
-          ],
-          correct: 1,
-          score: 200,
-          gift: "2 kẹo",
-          penalty: "30%",
-        },
-        {
-          question:
-            "Nguyễn Tất Thành làm công việc gì trên tàu Amiral Latouche-Tréville khi bắt đầu hành trình ra đi tìm đường cứu nước?",
-          answers: ["Thủy thủ", "Phụ bếp", "Thợ máy", "Nhân viên phục vụ"],
-          correct: 1,
-          score: 200,
-          gift: "1 bánh",
-          penalty: "0%",
-        },
-        {
-          question:
-            "Câu nói: 'Dù phải đốt cháy cả dãy Trường Sơn cũng phải giành cho được độc lập' thể hiện điều gì trong tư tưởng của Hồ Chí Minh?",
-          answers: [
-            "Tinh thần quyết tâm giành độc lập dân tộc",
-            "Tinh thần phát triển kinh tế",
-            "Tinh thần đoàn kết quốc tế",
-            "Tinh thần học tập khoa học kỹ thuật",
-          ],
-          correct: 0,
-          score: 200,
-          gift: "Không có thưởng",
-          penalty: "40%",
-        },
-        {
-          question:
-            "Nguyễn Ái Quốc đã thay mặt tổ chức nào để gửi Bản yêu sách của nhân dân An Nam tới Hội nghị Vécxay?",
-          answers: [
-            "Hội những người Việt Nam yêu nước tại Pháp",
-            "Hội Liên hiệp thuộc địa",
-            "Hội Việt Nam Cách mạng Thanh niên",
-            "Hội Liên hiệp các dân tộc bị áp bức",
-          ],
-          correct: 0,
-          score: 300,
-          gift: "1 bánh + 1 kẹo",
-          penalty: "10%",
-        },
-        {
-          question: "Bến Nhà Rồng hiện nay là địa điểm của bảo tàng nào?",
-          answers: [
-            "Bảo tàng Lịch sử Việt Nam",
-            "Bảo tàng Chứng tích Chiến tranh",
-            "Bảo tàng Hồ Chí Minh - Chi nhánh Thành phố Hồ Chí Minh",
-            "Bảo tàng Thành phố Hồ Chí Minh",
-          ],
-          correct: 2,
-          score: 300,
-          gift: "1 snack",
-          penalty: "0%",
-        },
-      ];
+      const anh1_NhaRong =  [
+  // CÂU DỄ (3 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+  {
+    question: "Phong trào “Tết trồng cây” do Chủ tịch Hồ Chí Minh phát động nhằm mục đích gì?",
+    answers: [
+      "Phát triển nông nghiệp và bảo vệ môi trường",
+      "Tăng sản lượng công nghiệp",
+      "Cải tổ giáo dục",
+      "Tăng cường quân sự hóa đất nước",
+    ],
+    correct: 0,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "0%",
+  },
+  {
+    question: "Câu nói “Mùa xuân là Tết trồng cây, làm cho đất nước càng ngày càng xuân” của Chủ tịch Hồ Chí Minh gắn liền với phong trào nào?",
+    answers: [
+      "Phong trào diệt giặc đói",
+      "Phong trào “Tết trồng cây”",
+      "Phong trào Bình dân học vụ",
+      "Phong trào thi đua ái quốc",
+    ],
+    correct: 1,
+    score: 100,
+    gift: "Không có thưởng",
+    penalty: "20%",
+  },
+  {
+    question: "Bác Hồ thường nhắc nhở nhân dân trồng cây phải đi đôi với việc gì để đạt hiệu quả?",
+    answers: [
+      "Chặt bớt cây cũ",
+      "Chăm sóc và bảo vệ cây",
+      "Bán lấy gỗ ngay",
+      "Khai hoang đất rừng bừa bãi",
+    ],
+    correct: 1,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "10%",
+  },
+  {
+    // Nhận từ anh5_NuocNga lẻ ra
+    question: 'Câu nói "Đoàn kết trong Mặt trận Việt Minh, nhân dân ta đã làm ... thành công, lập nên nước Việt Nam dân chủ cộng hòa". Điền cụm từ còn thiếu.',
+    answers: [
+      "Cách mạng giải phóng dân tộc",
+      "Cách mạng Tháng Tám",
+      "Cách mạng xã hội chủ nghĩa",
+      "Cách mạng dân tộc dân chủ",
+    ],
+    correct: 1,
+    score: 100,
+    gift: "1 kẹo",
+    penalty: "0%",
+  },
 
+  // CÂU TRUNG BÌNH (2 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+  {
+    question: "Bài báo đầu tiên Bác Hồ viết để phát động phong trào Tết trồng cây mang tiêu đề gì và đăng trên báo Nhân Dân?",
+    answers: [
+      "Cảnh rừng Việt Bắc",
+      "Tết trồng cây",
+      "Bảo vệ môi sinh",
+      "Trồng cây hai miền",
+    ],
+    correct: 1,
+    score: 200,
+    gift: "2 kẹo",
+    penalty: "20%",
+  },
+  {
+    question: "Địa điểm cuối cùng Bác Hồ đến tham gia trồng cây cùng nhân dân vào ngày mùng 1 Tết Kỷ Dậu (1969) là ở đâu?",
+    answers: [
+      "Xã Vật Lại, huyện Ba Vì, Hà Nội",
+      "Đình Cổ Loa, Đông Anh, Hà Nội",
+      "Công viên Thống Nhất, Hà Nội",
+      "Khu di tích Đá Chông (K9)",
+    ],
+    correct: 0,
+    score: 200,
+    gift: "Không có thưởng",
+    penalty: "40%",
+  },
+  {
+    // Nhận từ anh5_NuocNga lẻ ra
+    question: 'I "Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta (...) với họ". Điền từ còn thiếu.',
+    answers: ["Hợp tác", "Thương yêu", "Đoàn kết", "Giúp đỡ"],
+    correct: 2,
+    score: 200,
+    gift: "1 bánh",
+    penalty: "0%",
+  },
+
+  // CÂU KHÓ (1 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+  {
+    question: "Trong bài viết về Tết trồng cây, Bác Hồ đã tính toán lợi ích kinh tế nào rất cụ thể cho đất nước sau vài năm?",
+    answers: [
+      "Nguồn thu từ việc xuất khẩu trái cây",
+      "Số tiền lớn từ gỗ kiến thiết và độ che phủ rừng",
+      "Sản lượng lương thực tăng vọt",
+      "Tạo ra nhiều khu vui chơi giải trí",
+    ],
+    correct: 1,
+    score: 300,
+    gift: "2 kẹo",
+    penalty: "10%",
+  },
+  {
+    // Nhận từ anh5_NuocNga lẻ ra
+    question: "Bác Hồ đã viết bản Di chúc lịch sử bắt đầu từ năm nào?",
+    answers: ["1960", "1965", "1968", "1969"],
+    correct: 1,
+    score: 300,
+    gift: "1 snack",
+    penalty: "0%",
+  },
+];
       const currentQuestionSet = [...anh1_NhaRong];
       const wrongCells = new Set(); // Thêm bộ nhớ để lưu các ô trả lời sai
 
