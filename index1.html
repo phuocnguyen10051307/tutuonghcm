@@ -359,8 +359,11 @@
     <p class="subtitle">
       Trả lời câu hỏi hoặc nhập từ khóa tên bức ảnh để lật mở toàn bộ!
     </p>
+    <div style="margin-bottom: 20px">
+      <button class="guess-btn" onclick="showFullImage()">Giải mã ngay</button>
+    </div>
 
-    <div class="guess-container">
+    <!-- <div class="guess-container">
       <input
         type="text"
         id="keyword-input"
@@ -369,7 +372,7 @@
         onkeypress="handleKeyPress(event)"
       />
       <button class="guess-btn" onclick="checkKeyword()">Giải mã ngay</button>
-    </div>
+    </div> -->
 
     <div class="game-container">
       <div class="grid" id="grid"></div>
@@ -385,123 +388,131 @@
       let isGameWon = false; // Biến kiểm tra trạng thái thắng cuộc
 
       // --- NGÂN HÀNG CÂU HỎI ---
-      const anh1_NhaRong =  [
-  // CÂU DỄ (3 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
-  {
-    question: "Phong trào “Tết trồng cây” do Chủ tịch Hồ Chí Minh phát động nhằm mục đích gì?",
-    answers: [
-      "Phát triển nông nghiệp và bảo vệ môi trường",
-      "Tăng sản lượng công nghiệp",
-      "Cải tổ giáo dục",
-      "Tăng cường quân sự hóa đất nước",
-    ],
-    correct: 0,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "0%",
-  },
-  {
-    question: "Câu nói “Mùa xuân là Tết trồng cây, làm cho đất nước càng ngày càng xuân” của Chủ tịch Hồ Chí Minh gắn liền với phong trào nào?",
-    answers: [
-      "Phong trào diệt giặc đói",
-      "Phong trào “Tết trồng cây”",
-      "Phong trào Bình dân học vụ",
-      "Phong trào thi đua ái quốc",
-    ],
-    correct: 1,
-    score: 100,
-    gift: "Không có thưởng",
-    penalty: "20%",
-  },
-  {
-    question: "Bác Hồ thường nhắc nhở nhân dân trồng cây phải đi đôi với việc gì để đạt hiệu quả?",
-    answers: [
-      "Chặt bớt cây cũ",
-      "Chăm sóc và bảo vệ cây",
-      "Bán lấy gỗ ngay",
-      "Khai hoang đất rừng bừa bãi",
-    ],
-    correct: 1,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "10%",
-  },
-  {
-    // Nhận từ anh5_NuocNga lẻ ra
-    question: 'Câu nói "Đoàn kết trong Mặt trận Việt Minh, nhân dân ta đã làm ... thành công, lập nên nước Việt Nam dân chủ cộng hòa". Điền cụm từ còn thiếu.',
-    answers: [
-      "Cách mạng giải phóng dân tộc",
-      "Cách mạng Tháng Tám",
-      "Cách mạng xã hội chủ nghĩa",
-      "Cách mạng dân tộc dân chủ",
-    ],
-    correct: 1,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "0%",
-  },
+      const anh1_NhaRong = [
+        // CÂU DỄ (3 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+        {
+          question:
+            "Phong trào “Tết trồng cây” do Chủ tịch Hồ Chí Minh phát động nhằm mục đích gì?",
+          answers: [
+            "Phát triển nông nghiệp và bảo vệ môi trường",
+            "Tăng sản lượng công nghiệp",
+            "Cải tổ giáo dục",
+            "Tăng cường quân sự hóa đất nước",
+          ],
+          correct: 0,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
+        {
+          question:
+            "Câu nói “Mùa xuân là Tết trồng cây, làm cho đất nước càng ngày càng xuân” của Chủ tịch Hồ Chí Minh gắn liền với phong trào nào?",
+          answers: [
+            "Phong trào diệt giặc đói",
+            "Phong trào “Tết trồng cây”",
+            "Phong trào Bình dân học vụ",
+            "Phong trào thi đua ái quốc",
+          ],
+          correct: 1,
+          score: 100,
+          gift: "Không có thưởng",
+          penalty: "20%",
+        },
+        {
+          question:
+            "Bác Hồ thường nhắc nhở nhân dân trồng cây phải đi đôi với việc gì để đạt hiệu quả?",
+          answers: [
+            "Chặt bớt cây cũ",
+            "Chăm sóc và bảo vệ cây",
+            "Bán lấy gỗ ngay",
+            "Khai hoang đất rừng bừa bãi",
+          ],
+          correct: 1,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "10%",
+        },
+        {
+          // Nhận từ anh5_NuocNga lẻ ra
+          question:
+            'Câu nói "Đoàn kết trong Mặt trận Việt Minh, nhân dân ta đã làm ... thành công, lập nên nước Việt Nam dân chủ cộng hòa". Điền cụm từ còn thiếu.',
+          answers: [
+            "Cách mạng giải phóng dân tộc",
+            "Cách mạng Tháng Tám",
+            "Cách mạng xã hội chủ nghĩa",
+            "Cách mạng dân tộc dân chủ",
+          ],
+          correct: 1,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
 
-  // CÂU TRUNG BÌNH (2 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
-  {
-    question: "Bài báo đầu tiên Bác Hồ viết để phát động phong trào Tết trồng cây mang tiêu đề gì và đăng trên báo Nhân Dân?",
-    answers: [
-      "Cảnh rừng Việt Bắc",
-      "Tết trồng cây",
-      "Bảo vệ môi sinh",
-      "Trồng cây hai miền",
-    ],
-    correct: 1,
-    score: 200,
-    gift: "2 kẹo",
-    penalty: "20%",
-  },
-  {
-    question: "Địa điểm cuối cùng Bác Hồ đến tham gia trồng cây cùng nhân dân vào ngày mùng 1 Tết Kỷ Dậu (1969) là ở đâu?",
-    answers: [
-      "Xã Vật Lại, huyện Ba Vì, Hà Nội",
-      "Đình Cổ Loa, Đông Anh, Hà Nội",
-      "Công viên Thống Nhất, Hà Nội",
-      "Khu di tích Đá Chông (K9)",
-    ],
-    correct: 0,
-    score: 200,
-    gift: "Không có thưởng",
-    penalty: "40%",
-  },
-  {
-    // Nhận từ anh5_NuocNga lẻ ra
-    question: 'I "Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta (...) với họ". Điền từ còn thiếu.',
-    answers: ["Hợp tác", "Thương yêu", "Đoàn kết", "Giúp đỡ"],
-    correct: 2,
-    score: 200,
-    gift: "1 bánh",
-    penalty: "0%",
-  },
+        // CÂU TRUNG BÌNH (2 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+        {
+          question:
+            "Bài báo đầu tiên Bác Hồ viết để phát động phong trào Tết trồng cây mang tiêu đề gì và đăng trên báo Nhân Dân?",
+          answers: [
+            "Cảnh rừng Việt Bắc",
+            "Tết trồng cây",
+            "Bảo vệ môi sinh",
+            "Trồng cây hai miền",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "2 kẹo",
+          penalty: "20%",
+        },
+        {
+          question:
+            "Địa điểm cuối cùng Bác Hồ đến tham gia trồng cây cùng nhân dân vào ngày mùng 1 Tết Kỷ Dậu (1969) là ở đâu?",
+          answers: [
+            "Xã Vật Lại, huyện Ba Vì, Hà Nội",
+            "Đình Cổ Loa, Đông Anh, Hà Nội",
+            "Công viên Thống Nhất, Hà Nội",
+            "Khu di tích Đá Chông (K9)",
+          ],
+          correct: 0,
+          score: 200,
+          gift: "Không có thưởng",
+          penalty: "40%",
+        },
+        {
+          // Nhận từ anh5_NuocNga lẻ ra
+          question:
+            'I "Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta (...) với họ". Điền từ còn thiếu.',
+          answers: ["Hợp tác", "Thương yêu", "Đoàn kết", "Giúp đỡ"],
+          correct: 2,
+          score: 200,
+          gift: "1 bánh",
+          penalty: "0%",
+        },
 
-  // CÂU KHÓ (1 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
-  {
-    question: "Trong bài viết về Tết trồng cây, Bác Hồ đã tính toán lợi ích kinh tế nào rất cụ thể cho đất nước sau vài năm?",
-    answers: [
-      "Nguồn thu từ việc xuất khẩu trái cây",
-      "Số tiền lớn từ gỗ kiến thiết và độ che phủ rừng",
-      "Sản lượng lương thực tăng vọt",
-      "Tạo ra nhiều khu vui chơi giải trí",
-    ],
-    correct: 1,
-    score: 300,
-    gift: "2 kẹo",
-    penalty: "10%",
-  },
-  {
-    // Nhận từ anh5_NuocNga lẻ ra
-    question: "Bác Hồ đã viết bản Di chúc lịch sử bắt đầu từ năm nào?",
-    answers: ["1960", "1965", "1968", "1969"],
-    correct: 1,
-    score: 300,
-    gift: "1 snack",
-    penalty: "0%",
-  },
-];
+        // CÂU KHÓ (1 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+        {
+          question:
+            "Trong bài viết về Tết trồng cây, Bác Hồ đã tính toán lợi ích kinh tế nào rất cụ thể cho đất nước sau vài năm?",
+          answers: [
+            "Nguồn thu từ việc xuất khẩu trái cây",
+            "Số tiền lớn từ gỗ kiến thiết và độ che phủ rừng",
+            "Sản lượng lương thực tăng vọt",
+            "Tạo ra nhiều khu vui chơi giải trí",
+          ],
+          correct: 1,
+          score: 300,
+          gift: "2 kẹo",
+          penalty: "10%",
+        },
+        {
+          // Nhận từ anh5_NuocNga lẻ ra
+          question: "Bác Hồ đã viết bản Di chúc lịch sử bắt đầu từ năm nào?",
+          answers: ["1960", "1965", "1968", "1969"],
+          correct: 1,
+          score: 300,
+          gift: "1 snack",
+          penalty: "0%",
+        },
+      ];
       const currentQuestionSet = [...anh1_NhaRong];
       const wrongCells = new Set(); // Thêm bộ nhớ để lưu các ô trả lời sai
 
@@ -738,66 +749,97 @@
         str = str.replace(/[^a-zA-Z0-9 ]/g, "");
         return str;
       }
+      function showFullImage() {
+        isGameWon = true;
 
-      function checkKeyword() {
-        const inputField = document.getElementById("keyword-input");
-        const userGuess = inputField.value.trim();
+        const allCovers = document.querySelectorAll(".red-cover");
 
-        if (userGuess === "") {
-          showNotification(
-            "warning",
-            "Thiếu thông tin",
-            "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
-          );
-          return;
-        }
-
-        const cleanUserGuess = removeVietnameseTones(userGuess)
-          .toLowerCase()
-          .replace(/\s+/g, "");
-        const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
-          .toLowerCase()
-          .replace(/\s+/g, "");
-
-        if (cleanUserGuess === cleanCorrectAnswer) {
-          isGameWon = true;
-
-          // Thắng cuộc: Gỡ bỏ toàn bộ tất cả mảnh ghép (kể cả ô đen hay ô đỏ)
-          const allCovers = document.querySelectorAll(".red-cover");
-          allCovers.forEach((cov, index) => {
-            setTimeout(() => {
-              cov.style.pointerEvents = "none";
-              cov.classList.remove("black"); // Gỡ màu đen ra để tạo hiệu ứng lật đồng đều
-              cov.classList.add("fade-out");
-              setTimeout(() => {
-                cov.remove();
-              }, 400);
-            }, index * 80);
-          });
-
+        allCovers.forEach((cov, index) => {
           setTimeout(() => {
-            showNotification(
-              "success",
-              "SUCCESS!",
-              `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
-            );
-          }, 800);
+            cov.style.pointerEvents = "none";
+            cov.classList.remove("black");
+            cov.classList.add("fade-out");
 
-          inputField.value = CORRECT_KEYWORD;
-        } else {
+            setTimeout(() => {
+              cov.remove();
+            }, 400);
+          }, index * 80);
+        });
+
+        // Sau 8 giây hiện popup
+        setTimeout(() => {
           showNotification(
-            "error",
-            "Chưa chính xác",
-            "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+            "success",
+            "Hết thời gian!",
+            "Đây là đáp án của bức tranh. Chuẩn bị chuyển sang vòng tiếp theo.",
           );
-        }
+        }, 2000);
+
+        // Tự động qua trang mới sau 10 giây
+        setTimeout(() => {
+          window.location.href = NEXT_PAGE;
+        }, 10000);
       }
 
-      function handleKeyPress(event) {
-        if (event.key === "Enter") {
-          checkKeyword();
-        }
-      }
+      // function checkKeyword() {
+      //   const inputField = document.getElementById("keyword-input");
+      //   const userGuess = inputField.value.trim();
+
+      //   if (userGuess === "") {
+      //     showNotification(
+      //       "warning",
+      //       "Thiếu thông tin",
+      //       "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
+      //     );
+      //     return;
+      //   }
+
+      //   const cleanUserGuess = removeVietnameseTones(userGuess)
+      //     .toLowerCase()
+      //     .replace(/\s+/g, "");
+      //   const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
+      //     .toLowerCase()
+      //     .replace(/\s+/g, "");
+
+      //   if (cleanUserGuess === cleanCorrectAnswer) {
+      //     isGameWon = true;
+
+      //     // Thắng cuộc: Gỡ bỏ toàn bộ tất cả mảnh ghép (kể cả ô đen hay ô đỏ)
+      //     const allCovers = document.querySelectorAll(".red-cover");
+      //     allCovers.forEach((cov, index) => {
+      //       setTimeout(() => {
+      //         cov.style.pointerEvents = "none";
+      //         cov.classList.remove("black"); // Gỡ màu đen ra để tạo hiệu ứng lật đồng đều
+      //         cov.classList.add("fade-out");
+      //         setTimeout(() => {
+      //           cov.remove();
+      //         }, 400);
+      //       }, index * 80);
+      //     });
+
+      //     setTimeout(() => {
+      //       showNotification(
+      //         "success",
+      //         "SUCCESS!",
+      //         `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
+      //       );
+      //     }, 800);
+
+      //     inputField.value = CORRECT_KEYWORD;
+      //   } else {
+      //     showNotification(
+      //       "error",
+      //       "Chưa chính xác",
+      //       "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+      //     );
+      //   }
+      // }
+
+      // function handleKeyPress(event) {
+      //   if (event.key === "Enter") {
+      //     checkKeyword();
+      //   }
+      // }
     </script>
   </body>
 </html>

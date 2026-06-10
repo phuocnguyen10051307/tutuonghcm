@@ -361,8 +361,11 @@
     <p class="subtitle">
       Trả lời câu hỏi hoặc nhập từ khóa tên bức ảnh để lật mở toàn bộ!
     </p>
+    <div style="margin-bottom: 20px">
+      <button class="guess-btn" onclick="showFullImage()">Giải mã ngay</button>
+    </div>
 
-    <div class="guess-container">
+    <!-- <div class="guess-container">
       <input
         type="text"
         id="keyword-input"
@@ -371,7 +374,7 @@
         onkeypress="handleKeyPress(event)"
       />
       <button class="guess-btn" onclick="checkKeyword()">Giải mã ngay</button>
-    </div>
+    </div> -->
 
     <div class="game-container">
       <div class="grid" id="grid"></div>
@@ -387,102 +390,126 @@
 
       // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 5) ---
       const anh5_NuocNga = [
-  // CÂU DỄ (3 câu gốc Tuyên Ngôn + 1 câu nhận từ Pác Bó)
-  {
-    question: "Nội dung cốt lõi, xuyên suốt trong tư tưởng Hồ Chí Minh là gì?",
-    answers: [
-      "Độc lập dân tộc gắn liền với chủ nghĩa xã hội",
-      "Thương dân, yêu dân",
-      "Quan điểm về cách mạng",
-      "Bảo vệ Tổ quốc XHCN",
-    ],
-    correct: 0,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "0%",
-  },
-  {
-    question: "Hồ Chí Minh đọc bản Tuyên ngôn Độc lập khai sinh ra nước Việt Nam Dân chủ Cộng hòa vào ngày tháng năm nào?",
-    answers: ["19/8/1945", "23/8/1945", "2/9/1945", "25/8/1945"],
-    correct: 2,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "0%",
-  },
-  {
-    question: "Trong bản Tuyên ngôn Độc lập, Hồ Chí Minh đã trích dẫn bản Tuyên ngôn Độc lập của nước nào?",
-    answers: ["Mỹ và Anh", "Mỹ và Pháp", "Pháp và Nga", "Anh và Nga"],
-    correct: 1,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "20%",
-  },
-  {
-    // Nhận từ anh3_PacBo lẻ ra
-    question: "Ngày Bác Hồ về nước sau 30 năm bôn ba (28/1/1941) diễn ra tại địa điểm nào?",
-    answers: ["Pác Bó (Cao Bằng)", "Tân Trào (Tuyên Quang)", "Chiến khu Việt Bắc", "Cửa khẩu Móng Cái"],
-    correct: 0,
-    score: 100,
-    gift: "Không có thưởng",
-    penalty: "30%",
-  },
+        // CÂU DỄ (3 câu gốc Tuyên Ngôn + 1 câu nhận từ Pác Bó)
+        {
+          question:
+            "Nội dung cốt lõi, xuyên suốt trong tư tưởng Hồ Chí Minh là gì?",
+          answers: [
+            "Độc lập dân tộc gắn liền với chủ nghĩa xã hội",
+            "Thương dân, yêu dân",
+            "Quan điểm về cách mạng",
+            "Bảo vệ Tổ quốc XHCN",
+          ],
+          correct: 0,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
+        {
+          question:
+            "Hồ Chí Minh đọc bản Tuyên ngôn Độc lập khai sinh ra nước Việt Nam Dân chủ Cộng hòa vào ngày tháng năm nào?",
+          answers: ["19/8/1945", "23/8/1945", "2/9/1945", "25/8/1945"],
+          correct: 2,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
+        {
+          question:
+            "Trong bản Tuyên ngôn Độc lập, Hồ Chí Minh đã trích dẫn bản Tuyên ngôn Độc lập của nước nào?",
+          answers: ["Mỹ và Anh", "Mỹ và Pháp", "Pháp và Nga", "Anh và Nga"],
+          correct: 1,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "20%",
+        },
+        {
+          // Nhận từ anh3_PacBo lẻ ra
+          question:
+            "Ngày Bác Hồ về nước sau 30 năm bôn ba (28/1/1941) diễn ra tại địa điểm nào?",
+          answers: [
+            "Pác Bó (Cao Bằng)",
+            "Tân Trào (Tuyên Quang)",
+            "Chiến khu Việt Bắc",
+            "Cửa khẩu Móng Cái",
+          ],
+          correct: 0,
+          score: 100,
+          gift: "Không có thưởng",
+          penalty: "30%",
+        },
 
-  // CÂU TRUNG BÌNH (2 câu gốc Tuyên Ngôn + 1 câu nhận từ Pác Bó)
-  {
-    question: "Trong lời mở đầu bản Tuyên ngôn Độc lập, Bác Hồ đã khẳng định: 'Tất cả mọi người đều sinh ra có quyền ...' - quyền gì?",
-    answers: ["Tự do và mưu cầu hạnh phúc", "Sống và làm việc", "Bình đẳng và tự do", "Mưu cầu hạnh phúc"],
-    correct: 0,
-    score: 200,
-    gift: "1 kẹo + 1 snack",
-    penalty: "0%",
-  },
-  {
-    question: "Hồ Chí Minh được tôn vinh với danh hiệu nào sau đây bởi UNESCO?",
-    answers: [
-      "Nhà cách mạng vĩ đại thế giới",
-      "Anh hùng giải phóng dân tộc, Nhà văn hóa kiệt xuất",
-      "Danh nhân quân sự lỗi lạc",
-      "Lãnh tụ phong trào công nhân quốc tế",
-    ],
-    correct: 1,
-    score: 200,
-    gift: "2 kẹo",
-    penalty: "10%",
-  },
-  {
-    // Nhận từ anh3_PacBo lẻ ra
-    question: "Bí danh “Nguyễn Ái Quốc” gắn liền với hoạt động nào của Hồ Chí Minh?",
-    answers: [
-      "Hoạt động tìm đường cứu nước và hoạt động tại Pháp",
-      "Lãnh đạo khởi nghĩa giành chính quyền trong nước",
-      "Chỉ đạo kháng chiến chống Mỹ",
-      "Công tác xây dựng kinh tế sau hòa bình",
-    ],
-    correct: 0,
-    score: 200,
-    gift: "Không có thưởng",
-    penalty: "40%",
-  },
+        // CÂU TRUNG BÌNH (2 câu gốc Tuyên Ngôn + 1 câu nhận từ Pác Bó)
+        {
+          question:
+            "Trong lời mở đầu bản Tuyên ngôn Độc lập, Bác Hồ đã khẳng định: 'Tất cả mọi người đều sinh ra có quyền ...' - quyền gì?",
+          answers: [
+            "Tự do và mưu cầu hạnh phúc",
+            "Sống và làm việc",
+            "Bình đẳng và tự do",
+            "Mưu cầu hạnh phúc",
+          ],
+          correct: 0,
+          score: 200,
+          gift: "1 kẹo + 1 snack",
+          penalty: "0%",
+        },
+        {
+          question:
+            "Hồ Chí Minh được tôn vinh với danh hiệu nào sau đây bởi UNESCO?",
+          answers: [
+            "Nhà cách mạng vĩ đại thế giới",
+            "Anh hùng giải phóng dân tộc, Nhà văn hóa kiệt xuất",
+            "Danh nhân quân sự lỗi lạc",
+            "Lãnh tụ phong trào công nhân quốc tế",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "2 kẹo",
+          penalty: "10%",
+        },
+        {
+          // Nhận từ anh3_PacBo lẻ ra
+          question:
+            "Bí danh “Nguyễn Ái Quốc” gắn liền với hoạt động nào của Hồ Chí Minh?",
+          answers: [
+            "Hoạt động tìm đường cứu nước và hoạt động tại Pháp",
+            "Lãnh đạo khởi nghĩa giành chính quyền trong nước",
+            "Chỉ đạo kháng chiến chống Mỹ",
+            "Công tác xây dựng kinh tế sau hòa bình",
+          ],
+          correct: 0,
+          score: 200,
+          gift: "Không có thưởng",
+          penalty: "40%",
+        },
 
-  // CÂU KHÓ (1 câu gốc Tuyên Ngôn + 1 câu nhận từ Pác Bó)
-  {
-    question: "Đại hội nào của Đảng Cộng sản Việt Nam lần đầu tiên chính thức khẳng định: 'Đảng lấy chủ nghĩa Mác - Lênin, tư tưởng Hồ Chí Minh làm nền tảng tư tưởng và kim chỉ nam cho hành động'?",
-    answers: ["Đại hội VI (1986)", "Đại hội VII (1991)", "Đại hội VIII (1996)", "Đại hội IX (2001)"],
-    correct: 1,
-    score: 300,
-    gift: "1 bánh + 1 kẹo",
-    penalty: "0%",
-  },
-  {
-    // Nhận từ anh3_PacBo lẻ ra
-    question: "Bác Hồ đã viết cuốn 'Lịch sử nước ta' bằng thể thơ lục bát tại Pác Bó vào năm nào?",
-    answers: ["1941", "1942", "1943", "1945"],
-    correct: 0,
-    score: 300,
-    gift: "2 kẹo",
-    penalty: "20%",
-  },
-];
+        // CÂU KHÓ (1 câu gốc Tuyên Ngôn + 1 câu nhận từ Pác Bó)
+        {
+          question:
+            "Đại hội nào của Đảng Cộng sản Việt Nam lần đầu tiên chính thức khẳng định: 'Đảng lấy chủ nghĩa Mác - Lênin, tư tưởng Hồ Chí Minh làm nền tảng tư tưởng và kim chỉ nam cho hành động'?",
+          answers: [
+            "Đại hội VI (1986)",
+            "Đại hội VII (1991)",
+            "Đại hội VIII (1996)",
+            "Đại hội IX (2001)",
+          ],
+          correct: 1,
+          score: 300,
+          gift: "1 bánh + 1 kẹo",
+          penalty: "0%",
+        },
+        {
+          // Nhận từ anh3_PacBo lẻ ra
+          question:
+            "Bác Hồ đã viết cuốn 'Lịch sử nước ta' bằng thể thơ lục bát tại Pác Bó vào năm nào?",
+          answers: ["1941", "1942", "1943", "1945"],
+          correct: 0,
+          score: 300,
+          gift: "2 kẹo",
+          penalty: "20%",
+        },
+      ];
 
       const currentQuestionSet = [...anh5_NuocNga];
       const wrongCells = new Set();
@@ -713,65 +740,96 @@
         str = str.replace(/[^a-zA-Z0-9 ]/g, "");
         return str;
       }
+      function showFullImage() {
+        isGameWon = true;
 
-      function checkKeyword() {
-        const inputField = document.getElementById("keyword-input");
-        const userGuess = inputField.value.trim();
+        const allCovers = document.querySelectorAll(".red-cover");
 
-        if (userGuess === "") {
-          showNotification(
-            "warning",
-            "Thiếu thông tin",
-            "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
-          );
-          return;
-        }
-
-        const cleanUserGuess = removeVietnameseTones(userGuess)
-          .toLowerCase()
-          .replace(/\s+/g, "");
-        const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
-          .toLowerCase()
-          .replace(/\s+/g, "");
-
-        if (cleanUserGuess === cleanCorrectAnswer) {
-          // Thắng cuộc: Gỡ bỏ toàn bộ tất cả mảnh ghép (kể cả ô đen hay ô đỏ)
-          const allCovers = document.querySelectorAll(".red-cover");
-          allCovers.forEach((cov, index) => {
-            setTimeout(() => {
-              cov.style.pointerEvents = "none";
-              cov.classList.remove("black");
-              cov.classList.add("fade-out");
-              setTimeout(() => {
-                cov.remove();
-              }, 400);
-            }, index * 80);
-          });
-
-          // Hiện Popup Success thành công đồng bộ
+        allCovers.forEach((cov, index) => {
           setTimeout(() => {
-            showNotification(
-              "success",
-              "SUCCESS!",
-              `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
-            );
-          }, 800);
+            cov.style.pointerEvents = "none";
+            cov.classList.remove("black");
+            cov.classList.add("fade-out");
 
-          inputField.value = CORRECT_KEYWORD;
-        } else {
+            setTimeout(() => {
+              cov.remove();
+            }, 400);
+          }, index * 80);
+        });
+
+        // Sau 8 giây hiện popup
+        setTimeout(() => {
           showNotification(
-            "error",
-            "Chưa chính xác",
-            "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+            "success",
+            "Hết thời gian!",
+            "Đây là đáp án của bức tranh. Chuẩn bị chuyển sang vòng tiếp theo.",
           );
-        }
+        }, 2000);
+
+        // Tự động qua trang mới sau 10 giây
+        setTimeout(() => {
+          window.location.href = NEXT_PAGE;
+        }, 10000);
       }
 
-      function handleKeyPress(event) {
-        if (event.key === "Enter") {
-          checkKeyword();
-        }
-      }
+      // function checkKeyword() {
+      //   const inputField = document.getElementById("keyword-input");
+      //   const userGuess = inputField.value.trim();
+
+      //   if (userGuess === "") {
+      //     showNotification(
+      //       "warning",
+      //       "Thiếu thông tin",
+      //       "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
+      //     );
+      //     return;
+      //   }
+
+      //   const cleanUserGuess = removeVietnameseTones(userGuess)
+      //     .toLowerCase()
+      //     .replace(/\s+/g, "");
+      //   const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
+      //     .toLowerCase()
+      //     .replace(/\s+/g, "");
+
+      //   if (cleanUserGuess === cleanCorrectAnswer) {
+      //     // Thắng cuộc: Gỡ bỏ toàn bộ tất cả mảnh ghép (kể cả ô đen hay ô đỏ)
+      //     const allCovers = document.querySelectorAll(".red-cover");
+      //     allCovers.forEach((cov, index) => {
+      //       setTimeout(() => {
+      //         cov.style.pointerEvents = "none";
+      //         cov.classList.remove("black");
+      //         cov.classList.add("fade-out");
+      //         setTimeout(() => {
+      //           cov.remove();
+      //         }, 400);
+      //       }, index * 80);
+      //     });
+
+      //     // Hiện Popup Success thành công đồng bộ
+      //     setTimeout(() => {
+      //       showNotification(
+      //         "success",
+      //         "SUCCESS!",
+      //         `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
+      //       );
+      //     }, 800);
+
+      //     inputField.value = CORRECT_KEYWORD;
+      //   } else {
+      //     showNotification(
+      //       "error",
+      //       "Chưa chính xác",
+      //       "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+      //     );
+      //   }
+      // }
+
+      // function handleKeyPress(event) {
+      //   if (event.key === "Enter") {
+      //     checkKeyword();
+      //   }
+      // }
     </script>
   </body>
 </html>

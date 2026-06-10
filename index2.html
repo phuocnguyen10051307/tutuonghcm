@@ -361,8 +361,11 @@
     <p class="subtitle">
       Trả lời câu hỏi hoặc nhập từ khóa tên bức ảnh để lật mở toàn bộ!
     </p>
+    <div style="margin-bottom: 20px">
+      <button class="guess-btn" onclick="showFullImage()">Giải mã ngay</button>
+    </div>
 
-    <div class="guess-container">
+    <!-- <div class="guess-container">
       <input
         type="text"
         id="keyword-input"
@@ -371,7 +374,7 @@
         onkeypress="handleKeyPress(event)"
       />
       <button class="guess-btn" onclick="checkKeyword()">Giải mã ngay</button>
-    </div>
+    </div> -->
 
     <div class="game-container">
       <div class="grid" id="grid"></div>
@@ -389,122 +392,129 @@
 
       // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 2) ---
       const anh2_TuyenNgon = [
-  // CÂU DỄ (3 câu gốc Nga + 1 câu nhận từ Nha Rồng)
-  {
-    question: "Hồ Chí Minh sang Liên Xô (Nga) lần đầu tiên vào năm nào?",
-    answers: ["1921", "1922", "1923", "1924"],
-    correct: 2,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "0%",
-  },
-  {
-    question: "Tên gọi “Hồ Chí Minh” gắn với giai đoạn hoạt động nào của Người?",
-    answers: [
-      "Thời kỳ hoạt động ở trong nước, chuẩn bị Tổng khởi nghĩa",
-      "Thời kỳ hoạt động ở nước ngoài, tìm đường cứu nước",
-      "Thời kỳ sau Cách mạng Tháng Tám",
-      "Thời kỳ hoạt động trong Chính phủ Việt Nam Dân chủ Cộng hòa",
-    ],
-    correct: 0,
-    score: 100,
-    gift: "Không có thưởng",
-    penalty: "40%",
-  },
-  {
-    question: "Trong tư tưởng Hồ Chí Minh, nguyên tắc tối cao để đoàn kết rộng rãi quần chúng nhân dân là gì?",
-    answers: [
-      "Yêu dân, tin dân, dựa vào dân, vì hạnh phúc của nhân dân",
-      "Tập hợp lực lượng, không bỏ sót ai",
-      "Đứng vững trên lập trường giai cấp công nhân",
-      "Giải quyết hài hòa mối quan hệ giai cấp - dân tộc",
-    ],
-    correct: 0,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "10%",
-  },
-  {
-    // Nhận từ anh1_NhaRong
-    question: "Bản Yêu sách 8 điểm của Nguyễn Ái Quốc gửi tới Hội nghị Vécxay (1919) đòi quyền gì cho nhân dân Việt Nam?",
-    answers: [
-      "Quyền tự trị",
-      "Quyền độc lập",
-      "Quyền giải phóng dân tộc",
-      "Quyền tự do, dân chủ tối thiểu",
-    ],
-    correct: 3,
-    score: 100,
-    gift: "1 kẹo",
-    penalty: "0%",
-  },
+        // CÂU DỄ (3 câu gốc Nga + 1 câu nhận từ Nha Rồng)
+        {
+          question: "Hồ Chí Minh sang Liên Xô (Nga) lần đầu tiên vào năm nào?",
+          answers: ["1921", "1922", "1923", "1924"],
+          correct: 2,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
+        {
+          question:
+            "Tên gọi “Hồ Chí Minh” gắn với giai đoạn hoạt động nào của Người?",
+          answers: [
+            "Thời kỳ hoạt động ở trong nước, chuẩn bị Tổng khởi nghĩa",
+            "Thời kỳ hoạt động ở nước ngoài, tìm đường cứu nước",
+            "Thời kỳ sau Cách mạng Tháng Tám",
+            "Thời kỳ hoạt động trong Chính phủ Việt Nam Dân chủ Cộng hòa",
+          ],
+          correct: 0,
+          score: 100,
+          gift: "Không có thưởng",
+          penalty: "40%",
+        },
+        {
+          question:
+            "Trong tư tưởng Hồ Chí Minh, nguyên tắc tối cao để đoàn kết rộng rãi quần chúng nhân dân là gì?",
+          answers: [
+            "Yêu dân, tin dân, dựa vào dân, vì hạnh phúc của nhân dân",
+            "Tập hợp lực lượng, không bỏ sót ai",
+            "Đứng vững trên lập trường giai cấp công nhân",
+            "Giải quyết hài hòa mối quan hệ giai cấp - dân tộc",
+          ],
+          correct: 0,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "10%",
+        },
+        {
+          // Nhận từ anh1_NhaRong
+          question:
+            "Bản Yêu sách 8 điểm của Nguyễn Ái Quốc gửi tới Hội nghị Vécxay (1919) đòi quyền gì cho nhân dân Việt Nam?",
+          answers: [
+            "Quyền tự trị",
+            "Quyền độc lập",
+            "Quyền giải phóng dân tộc",
+            "Quyền tự do, dân chủ tối thiểu",
+          ],
+          correct: 3,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
 
-  // CÂU TRUNG BÌNH (2 câu gốc Nga + 1 câu nhận từ Tuyên Ngôn)
-  {
-    question: "Tại Đại hội V của Quốc tế Cộng sản (1924), Nguyễn Ái Quốc đã ba lần phát biểu tập trung vào vấn đề gì?",
-    answers: [
-      "Cách mạng ruộng đất ở thuộc địa",
-      "Vấn đề dân tộc và thuộc địa",
-      "Liên minh công – nông quốc tế",
-      "Xây dựng Đảng kiểu mới",
-    ],
-    correct: 1,
-    score: 200,
-    gift: "2 kẹo",
-    penalty: "30%",
-  },
-  {
-    question: 'Trong tư tưởng Hồ Chí Minh, để thực hiện đoàn kết quốc tế, thì đoàn kết (....) "là điều kiện quan trọng nhất để bảo đảm cho phong trào cộng sản và công nhân toàn thắng". Điền cụm từ thích hợp.',
-    answers: [
-      "Giữa các dân tộc",
-      "Giữa các tầng lớp nhân dân",
-      "Giữa các Đảng",
-      "Giữa các tôn giáo",
-    ],
-    correct: 2,
-    score: 200,
-    gift: "Không có thưởng",
-    penalty: "0%",
-  },
-  {
-    // Nhận từ anh2_TuyenNgon
-    question: "Theo tư tưởng Hồ Chí Minh, động lực quan trọng nhất của chủ nghĩa xã hội là gì?",
-    answers: [
-      "Khoa học - kỹ thuật",
-      "Con người",
-      "Văn hóa",
-      "Sự phát triển của lực lượng sản xuất",
-    ],
-    correct: 1,
-    score: 200,
-    gift: "1 bánh + 1 kẹo",
-    penalty: "20%",
-  },
+        // CÂU TRUNG BÌNH (2 câu gốc Nga + 1 câu nhận từ Tuyên Ngôn)
+        {
+          question:
+            "Tại Đại hội V của Quốc tế Cộng sản (1924), Nguyễn Ái Quốc đã ba lần phát biểu tập trung vào vấn đề gì?",
+          answers: [
+            "Cách mạng ruộng đất ở thuộc địa",
+            "Vấn đề dân tộc và thuộc địa",
+            "Liên minh công – nông quốc tế",
+            "Xây dựng Đảng kiểu mới",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "2 kẹo",
+          penalty: "30%",
+        },
+        {
+          question:
+            'Trong tư tưởng Hồ Chí Minh, để thực hiện đoàn kết quốc tế, thì đoàn kết (....) "là điều kiện quan trọng nhất để bảo đảm cho phong trào cộng sản và công nhân toàn thắng". Điền cụm từ thích hợp.',
+          answers: [
+            "Giữa các dân tộc",
+            "Giữa các tầng lớp nhân dân",
+            "Giữa các Đảng",
+            "Giữa các tôn giáo",
+          ],
+          correct: 2,
+          score: 200,
+          gift: "Không có thưởng",
+          penalty: "0%",
+        },
+        {
+          // Nhận từ anh2_TuyenNgon
+          question:
+            "Theo tư tưởng Hồ Chí Minh, động lực quan trọng nhất của chủ nghĩa xã hội là gì?",
+          answers: [
+            "Khoa học - kỹ thuật",
+            "Con người",
+            "Văn hóa",
+            "Sự phát triển của lực lượng sản xuất",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "1 bánh + 1 kẹo",
+          penalty: "20%",
+        },
 
-  // CÂU KHÓ (1 câu gốc Nga + 1 câu nhận từ Nha Rồng)
-  {
-    question: "Bác Hồ được Nhà nước Liên Xô tặng thưởng Huân chương Lênin vào năm nào?",
-    answers: ["1965", "1967", "1969", "1970"],
-    correct: 1,
-    score: 300,
-    gift: "2 kẹo",
-    penalty: "0%",
-  },
-  {
-    // Nhận từ anh1_NhaRong
-    question: "Bến Nhà Rồng hiện nay là địa điểm của bảo tàng nào?",
-    answers: [
-      "Bảo tàng Lịch sử Việt Nam",
-      "Bảo tàng Chứng tích Chiến tranh",
-      "Bảo tàng Hồ Chí Minh - Chi nhánh Thành phố Hồ Chí Minh",
-      "Bảo tàng Thành phố Hồ Chí Minh",
-    ],
-    correct: 2,
-    score: 300,
-    gift: "1 snack",
-    penalty: "10%",
-  },
-];
+        // CÂU KHÓ (1 câu gốc Nga + 1 câu nhận từ Nha Rồng)
+        {
+          question:
+            "Bác Hồ được Nhà nước Liên Xô tặng thưởng Huân chương Lênin vào năm nào?",
+          answers: ["1965", "1967", "1969", "1970"],
+          correct: 1,
+          score: 300,
+          gift: "2 kẹo",
+          penalty: "0%",
+        },
+        {
+          // Nhận từ anh1_NhaRong
+          question: "Bến Nhà Rồng hiện nay là địa điểm của bảo tàng nào?",
+          answers: [
+            "Bảo tàng Lịch sử Việt Nam",
+            "Bảo tàng Chứng tích Chiến tranh",
+            "Bảo tàng Hồ Chí Minh - Chi nhánh Thành phố Hồ Chí Minh",
+            "Bảo tàng Thành phố Hồ Chí Minh",
+          ],
+          correct: 2,
+          score: 300,
+          gift: "1 snack",
+          penalty: "10%",
+        },
+      ];
       const currentQuestionSet = [...anh2_TuyenNgon];
       const wrongCells = new Set();
 
@@ -740,67 +750,98 @@
         str = str.replace(/[^a-zA-Z0-9 ]/g, "");
         return str;
       }
+      function showFullImage() {
+        isGameWon = true;
 
-      function checkKeyword() {
-        const inputField = document.getElementById("keyword-input");
-        const userGuess = inputField.value.trim();
+        const allCovers = document.querySelectorAll(".red-cover");
 
-        if (userGuess === "") {
-          showNotification(
-            "warning",
-            "Thiếu thông tin",
-            "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
-          );
-          return;
-        }
-
-        const cleanUserGuess = removeVietnameseTones(userGuess)
-          .toLowerCase()
-          .replace(/\s+/g, "");
-        const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
-          .toLowerCase()
-          .replace(/\s+/g, "");
-
-        if (cleanUserGuess === cleanCorrectAnswer) {
-          isGameWon = true; // Kích hoạt chuyển trang khi đóng popup thành công
-
-          // Thắng cuộc: Mở toàn bộ các mảnh ghép gợn sóng
-          const allCovers = document.querySelectorAll(".red-cover");
-          allCovers.forEach((cov, index) => {
-            setTimeout(() => {
-              cov.style.pointerEvents = "none";
-              cov.classList.remove("black");
-              cov.classList.add("fade-out");
-              setTimeout(() => {
-                cov.remove();
-              }, 400);
-            }, index * 80);
-          });
-
-          // Hiện Popup Success thành công đồng bộ
+        allCovers.forEach((cov, index) => {
           setTimeout(() => {
-            showNotification(
-              "success",
-              "SUCCESS!",
-              `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
-            );
-          }, 800);
+            cov.style.pointerEvents = "none";
+            cov.classList.remove("black");
+            cov.classList.add("fade-out");
 
-          inputField.value = CORRECT_KEYWORD;
-        } else {
+            setTimeout(() => {
+              cov.remove();
+            }, 400);
+          }, index * 80);
+        });
+
+        // Sau 8 giây hiện popup
+        setTimeout(() => {
           showNotification(
-            "error",
-            "Chưa chính xác",
-            "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+            "success",
+            "Hết thời gian!",
+            "Đây là đáp án của bức tranh. Chuẩn bị chuyển sang vòng tiếp theo.",
           );
-        }
+        }, 2000);
+
+        // Tự động qua trang mới sau 10 giây
+        setTimeout(() => {
+          window.location.href = NEXT_PAGE;
+        }, 10000);
       }
 
-      function handleKeyPress(event) {
-        if (event.key === "Enter") {
-          checkKeyword();
-        }
-      }
+      // function checkKeyword() {
+      //   const inputField = document.getElementById("keyword-input");
+      //   const userGuess = inputField.value.trim();
+
+      //   if (userGuess === "") {
+      //     showNotification(
+      //       "warning",
+      //       "Thiếu thông tin",
+      //       "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
+      //     );
+      //     return;
+      //   }
+
+      //   const cleanUserGuess = removeVietnameseTones(userGuess)
+      //     .toLowerCase()
+      //     .replace(/\s+/g, "");
+      //   const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
+      //     .toLowerCase()
+      //     .replace(/\s+/g, "");
+
+      //   if (cleanUserGuess === cleanCorrectAnswer) {
+      //     isGameWon = true; // Kích hoạt chuyển trang khi đóng popup thành công
+
+      //     // Thắng cuộc: Mở toàn bộ các mảnh ghép gợn sóng
+      //     const allCovers = document.querySelectorAll(".red-cover");
+      //     allCovers.forEach((cov, index) => {
+      //       setTimeout(() => {
+      //         cov.style.pointerEvents = "none";
+      //         cov.classList.remove("black");
+      //         cov.classList.add("fade-out");
+      //         setTimeout(() => {
+      //           cov.remove();
+      //         }, 400);
+      //       }, index * 80);
+      //     });
+
+      //     // Hiện Popup Success thành công đồng bộ
+      //     setTimeout(() => {
+      //       showNotification(
+      //         "success",
+      //         "SUCCESS!",
+      //         `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
+      //       );
+      //     }, 800);
+
+      //     inputField.value = CORRECT_KEYWORD;
+      //   } else {
+      //     showNotification(
+      //       "error",
+      //       "Chưa chính xác",
+      //       "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+      //     );
+      //   }
+      // }
+
+      // function handleKeyPress(event) {
+      //   if (event.key === "Enter") {
+      //     checkKeyword();
+      //   }
+      // }
     </script>
   </body>
 </html>
