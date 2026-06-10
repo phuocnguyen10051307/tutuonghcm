@@ -387,6 +387,7 @@
     <script>
       // --- TÊN TỪ KHÓA ĐÁP ÁN ĐOÁN HÌNH 5 ---
       const CORRECT_KEYWORD = "BÁC HỒ VỚI NƯỚC NGA";
+      const NEXT_PAGE = "index6.html";
 
       // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 5) ---
       const anh5_NuocNga = [
@@ -555,6 +556,7 @@
         if (type === "success") {
           icon = "🎉";
           btnColor = "#4caf50";
+          btnText = "Tiếp tục sang Ảnh 6 ➔";
         }
         if (type === "error") {
           icon = "❌";
@@ -566,7 +568,7 @@
                 <div class="popup-custom-title" style="color: ${btnColor}">${title}</div>
                 <div class="popup-custom-desc">${message}</div>
                 <div class="popup-footer" style="margin-top: 0;">
-                    <button class="action-btn" style="background: ${btnColor};" onclick="closePopup()">Đóng</button>
+                    <button class="action-btn" style="background: ${btnColor};" onclick="closePopup()">${btnText}</button>
                 </div>
             `;
         overlay.classList.add("active");
@@ -714,12 +716,20 @@
         }
         closePopup();
       }
-
-      // Ẩn lớp popup thông báo
       function closePopup() {
         clearInterval(questionTimer);
         overlay.classList.remove("active");
+        // Nếu đã kích hoạt trạng thái thắng, nhấn đóng popup sẽ chuyển trang tự động
+        if (isGameWon) {
+          window.location.href = NEXT_PAGE;
+        }
       }
+
+      // Ẩn lớp popup thông báo
+      // function closePopup() {
+      //   clearInterval(questionTimer);
+      //   overlay.classList.remove("active");
+      // }
 
       // --- XỬ LÝ ĐOÁN TỪ KHÓA TÊN BỨC ẢNH ---
       function removeVietnameseTones(str) {
@@ -761,7 +771,7 @@
         setTimeout(() => {
           showNotification(
             "success",
-            "Hết thời gian!",
+            "BÁC HỒ VỚI NƯỚC NGA!",
             "Đây là đáp án của bức tranh. Chuẩn bị chuyển sang vòng tiếp theo.",
           );
         }, 2000);

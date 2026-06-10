@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mật Mã Đông Dương - Giải Mã Bức Tranh</title>
+    <title>Mật Mã Đông Dương - Giải Mã Bức Tranh 4</title>
     <style>
       * {
         box-sizing: border-box;
@@ -111,7 +111,7 @@
       .cell {
         position: relative;
         border: 1px solid rgba(255, 255, 255, 0.1);
-        background-image: url("nharong.jpg"); /* ĐƯỜNG DẪN ẢNH SƠN DẦU */
+        background-image: url("baucu.png"); /* ĐƯỜNG DẪN ẢNH BÁC HỒ TRỒNG CÂY */
         background-size: 600px 480px;
         background-repeat: no-repeat;
         overflow: hidden;
@@ -127,6 +127,7 @@
       .cell[data-pos="2"] {
         background-position: -400px 0px;
       }
+
       .cell[data-pos="3"] {
         background-position: 0px -160px;
       }
@@ -136,6 +137,7 @@
       .cell[data-pos="5"] {
         background-position: -400px -160px;
       }
+
       .cell[data-pos="6"] {
         background-position: 0px -320px;
       }
@@ -181,7 +183,7 @@
       /* KHI Ô BỊ SAI: Đổi sang màu đen đặc che hoàn toàn ảnh nền và khóa click */
       .red-cover.black {
         background: #000000 !important;
-        color: #ff4d4d !important; /* Dấu ✖ hiển thị màu đỏ */
+        color: #ff4d4d !important;
         cursor: not-allowed !important;
         opacity: 1 !important;
         pointer-events: none !important;
@@ -383,49 +385,43 @@
     </div>
 
     <script>
-      const CORRECT_KEYWORD = "BẾN CẢNG NHÀ RỒNG";
-      const NEXT_PAGE = "index2.html"; // Tên file của trang tiếp theo
-      let isGameWon = false; // Biến kiểm tra trạng thái thắng cuộc
+      // --- TÊN TỪ KHÓA ĐÁP ÁN ĐOÁN HÌNH 4 ---
+      const CORRECT_KEYWORD = "BÁC HỒ TRỒNG CÂY";
+      const NEXT_PAGE = "index7.html"; // Cấu hình trang kế tiếp sau khi thắng màn 4
+      let isGameWon = false; // Theo dõi trạng thái hoàn thành màn chơi
 
-      // --- NGÂN HÀNG CÂU HỎI ---
-      const anh1_NhaRong = [
-        // CÂU DỄ (3 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+      // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 4) ---
+      const anh6_ThieuNhi = [
+        // CÂU DỄ (3 câu gốc Thiếu Nhi + 1 câu nhận từ Cuba)
         {
           question:
-            "Phong trào “Tết trồng cây” do Chủ tịch Hồ Chí Minh phát động nhằm mục đích gì?",
+            "Chủ tịch Hồ Chí Minh viết câu nói “Non sông Việt Nam có trở nên tươi đẹp hay không...” nhân dịp nào?",
           answers: [
-            "Phát triển nông nghiệp và bảo vệ môi trường",
-            "Tăng sản lượng công nghiệp",
-            "Cải tổ giáo dục",
-            "Tăng cường quân sự hóa đất nước",
+            "Thư gửi thiếu nhi nhân dịp Tết Trung thu năm 1945",
+            "Thư gửi học sinh nhân ngày khai trường đầu tiên của nước Việt Nam Dân chủ Cộng hòa",
+            "Thư gửi thanh niên toàn quốc năm 1946",
+            "Lời kêu gọi toàn quốc kháng chiến năm 1946",
           ],
-          correct: 0,
+          correct: 1,
           score: 100,
           gift: "1 kẹo",
           penalty: "0%",
         },
         {
-          question:
-            "Câu nói “Mùa xuân là Tết trồng cây, làm cho đất nước càng ngày càng xuân” của Chủ tịch Hồ Chí Minh gắn liền với phong trào nào?",
-          answers: [
-            "Phong trào diệt giặc đói",
-            "Phong trào “Tết trồng cây”",
-            "Phong trào Bình dân học vụ",
-            "Phong trào thi đua ái quốc",
-          ],
-          correct: 1,
+          question: "Ngày nào được chọn là Ngày Quốc tế Thiếu nhi?",
+          answers: ["19/5", "15/5", "1/6", "2/9"],
+          correct: 2,
           score: 100,
           gift: "Không có thưởng",
           penalty: "20%",
         },
         {
-          question:
-            "Bác Hồ thường nhắc nhở nhân dân trồng cây phải đi đôi với việc gì để đạt hiệu quả?",
+          question: "Câu nói nổi tiếng của Bác Hồ dành cho thiếu nhi là:",
           answers: [
-            "Chặt bớt cây cũ",
-            "Chăm sóc và bảo vệ cây",
-            "Bán lấy gỗ ngay",
-            "Khai hoang đất rừng bừa bãi",
+            "Học để làm quan",
+            "Tuổi nhỏ làm việc nhỏ, tùy theo sức của mình",
+            "Học nữa, học mãi",
+            "Lao động là vinh quang",
           ],
           correct: 1,
           score: 100,
@@ -433,88 +429,99 @@
           penalty: "10%",
         },
         {
-          // Nhận từ anh5_NuocNga lẻ ra
+          // Nhận từ anh8_Cuba
           question:
-            'Câu nói "Đoàn kết trong Mặt trận Việt Minh, nhân dân ta đã làm ... thành công, lập nên nước Việt Nam dân chủ cộng hòa". Điền cụm từ còn thiếu.',
+            "Lãnh tụ nổi tiếng của Cuba gắn liền với tình hữu nghị Việt Nam – Cuba là ai?",
           answers: [
-            "Cách mạng giải phóng dân tộc",
-            "Cách mạng Tháng Tám",
-            "Cách mạng xã hội chủ nghĩa",
-            "Cách mạng dân tộc dân chủ",
+            "Ernesto Che Guevara",
+            "Raúl Castro",
+            "Fidel Castro",
+            "Miguel Díaz-Canel",
           ],
-          correct: 1,
+          correct: 2,
           score: 100,
           gift: "1 kẹo",
-          penalty: "0%",
+          penalty: "10%",
         },
 
-        // CÂU TRUNG BÌNH (2 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
+        // CÂU TRUNG BÌNH (2 câu gốc Thiếu Nhi + 1 câu nhận từ Cuba)
         {
           question:
-            "Bài báo đầu tiên Bác Hồ viết để phát động phong trào Tết trồng cây mang tiêu đề gì và đăng trên báo Nhân Dân?",
+            "Trong '5 điều Bác Hồ dạy thiếu niên, nhi đồng', điều đầu tiên là gì?",
           answers: [
-            "Cảnh rừng Việt Bắc",
-            "Tết trồng cây",
-            "Bảo vệ môi sinh",
-            "Trồng cây hai miền",
+            "Học tập tốt, lao động tốt",
+            "Đoàn kết tốt, kỷ luật tốt",
+            "Yêu Tổ quốc, yêu đồng bào",
+            "Giữ gìn vệ sinh thật tốt",
           ],
-          correct: 1,
-          score: 200,
-          gift: "2 kẹo",
-          penalty: "20%",
-        },
-        {
-          question:
-            "Địa điểm cuối cùng Bác Hồ đến tham gia trồng cây cùng nhân dân vào ngày mùng 1 Tết Kỷ Dậu (1969) là ở đâu?",
-          answers: [
-            "Xã Vật Lại, huyện Ba Vì, Hà Nội",
-            "Đình Cổ Loa, Đông Anh, Hà Nội",
-            "Công viên Thống Nhất, Hà Nội",
-            "Khu di tích Đá Chông (K9)",
-          ],
-          correct: 0,
-          score: 200,
-          gift: "Không có thưởng",
-          penalty: "40%",
-        },
-        {
-          // Nhận từ anh5_NuocNga lẻ ra
-          question:
-            'I "Ai có tài, có đức, có sức, có lòng phụng sự Tổ quốc và phục vụ nhân dân thì ta (...) với họ". Điền từ còn thiếu.',
-          answers: ["Hợp tác", "Thương yêu", "Đoàn kết", "Giúp đỡ"],
           correct: 2,
           score: 200,
-          gift: "1 bánh",
-          penalty: "0%",
+          gift: "2 kẹo",
+          penalty: "20%",
         },
-
-        // CÂU KHÓ (1 câu gốc Trồng Cây + 1 câu nhận từ Nước Nga)
         {
           question:
-            "Trong bài viết về Tết trồng cây, Bác Hồ đã tính toán lợi ích kinh tế nào rất cụ thể cho đất nước sau vài năm?",
+            "Theo tư tưởng Hồ Chí Minh, việc chăm lo, giáo dục thiếu nhi nhằm mục đích gì?",
           answers: [
-            "Nguồn thu từ việc xuất khẩu trái cây",
-            "Số tiền lớn từ gỗ kiến thiết và độ che phủ rừng",
-            "Sản lượng lương thực tăng vọt",
-            "Tạo ra nhiều khu vui chơi giải trí",
+            "Xây dựng lực lượng lao động",
+            "Chuẩn bị thế hệ cách mạng cho đời sau",
+            "Tăng dân số",
+            "Phát triển kinh tế",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "1 bánh + 1 kẹo",
+          penalty: "20%",
+        },
+        {
+          // Nhận từ anh8_Cuba
+          question:
+            "Tình hữu nghị Việt Nam – Cuba thường được nhắc đến bằng cụm từ nào?",
+          answers: [
+            "Hữu nghị truyền thống",
+            "Đối tác chiến lược toàn diện",
+            "Đoàn kết anh em đặc biệt",
+            "Quan hệ láng giềng hữu nghị",
+          ],
+          correct: 2,
+          score: 200,
+          gift: "1 bánh + 1 kẹo",
+          penalty: "20%",
+        },
+
+        // CÂU KHÓ (1 câu gốc Thiếu Nhi + 1 câu nhận từ Cuba)
+        {
+          question:
+            "Bài thơ 'Trẻ em như búp trên cành' của Bác Hồ nhấn mạnh điều gì?",
+          answers: [
+            "Trẻ em cần được vui chơi",
+            "Trẻ em cần được bảo vệ và giáo dục tốt",
+            "Trẻ em phải lao động sớm",
+            "Trẻ em cần học võ",
           ],
           correct: 1,
           score: 300,
           gift: "2 kẹo",
-          penalty: "10%",
-        },
-        {
-          // Nhận từ anh5_NuocNga lẻ ra
-          question: "Bác Hồ đã viết bản Di chúc lịch sử bắt đầu từ năm nào?",
-          answers: ["1960", "1965", "1968", "1969"],
-          correct: 1,
-          score: 300,
-          gift: "1 snack",
           penalty: "0%",
         },
+        {
+          // Nhận từ anh8_Cuba
+          question:
+            "Trong chuyến thăm Việt Nam năm 1973, Fidel Castro đã giương cao lá cờ của tổ chức nào tại Quảng Trị?",
+          answers: [
+            "Đàng Lao động Việt Nam",
+            "Quân đội Nhân dân Việt Nam",
+            "Mặt trận Dân tộc Giải phóng miền Nam Việt Nam",
+            "Chính phủ Việt Nam Dân chủ Cộng hòa",
+          ],
+          correct: 2,
+          score: 300,
+          gift: "1 snack",
+          penalty: "10%",
+        },
       ];
-      const currentQuestionSet = [...anh1_NhaRong];
-      const wrongCells = new Set(); // Thêm bộ nhớ để lưu các ô trả lời sai
+      const currentQuestionSet = [...anh6_ThieuNhi];
+      const wrongCells = new Set();
 
       const grid = document.getElementById("grid");
       const overlay = document.getElementById("overlay");
@@ -525,7 +532,6 @@
 
       let questionTimer = null;
       let timeLeft = 15;
-
       // Khởi tạo lưới ô vuông
       for (let i = 1; i <= 9; i++) {
         const cell = document.createElement("div");
@@ -537,7 +543,6 @@
         cover.innerText = i;
 
         cover.addEventListener("click", function (e) {
-          // Khóa hoàn toàn, không mở câu hỏi nếu ô này đã bị đoán sai
           if (wrongCells.has(i - 1)) {
             e.stopPropagation();
             return;
@@ -560,7 +565,7 @@
         if (type === "success") {
           icon = "🎉";
           btnColor = "#4caf50";
-          btnText = "Tiếp tục sang Ảnh 2 ➔";
+          btnText = "Tiếp tục sang Ảnh 7 ➔";
         }
         if (type === "error") {
           icon = "❌";
@@ -568,13 +573,13 @@
         }
 
         popupContent.innerHTML = `
-            <div class="popup-icon">${icon}</div>
-            <div class="popup-custom-title" style="color: ${btnColor}">${title}</div>
-            <div class="popup-custom-desc">${message}</div>
-            <div class="popup-footer" style="margin-top: 0;">
-                <button class="action-btn" style="background: ${btnColor};" onclick="closePopup()">${btnText}</button>
-            </div>
-        `;
+                <div class="popup-icon">${icon}</div>
+                <div class="popup-custom-title" style="color: ${btnColor}">${title}</div>
+                <div class="popup-custom-desc">${message}</div>
+                <div class="popup-footer" style="margin-top: 0;">
+                    <button class="action-btn" style="background: ${btnColor};" onclick="closePopup()">${btnText}</button>
+                </div>
+            `;
         overlay.classList.add("active");
       }
 
@@ -588,25 +593,25 @@
 
         popupContent.className = "popup";
         popupContent.innerHTML = `
-            <div class="popup-header" id="popup-title">Đang giải mã ô số ${parseInt(coverElement.innerText)}</div>
-              <div id="timer-display" style="margin-top:10px;color:#f44336;font-size:18px;">
+                <div class="popup-header" id="popup-title">Đang giải mã ô số ${parseInt(coverElement.innerText)}</div>
+                  <div id="timer-display" style="margin-top:10px;color:#f44336;font-size:18px;">
       ⏳ 15s
-  </div>
-            <div class="popup-body">
-                <div class="question-side">
-                    <div class="question-text" id="question-text">${qData.question}</div>
-                    <div class="options" id="options-container"></div>
                 </div>
-                <div class="info-side">
-                    <div class="info-box box-score"><strong>❤️ Điểm:</strong><span>${qData.score}</span></div>
-                    <div class="info-box box-gift"><strong>🎁 Thưởng:</strong><span>${qData.gift}</span></div>
-                    <div class="info-box box-penalty"><strong>⚠️ Trừ điểm:</strong><span>${qData.penalty}</span></div>
+                <div class="popup-body">
+                    <div class="question-side">
+                        <div class="question-text" id="question-text">${qData.question}</div>
+                        <div class="options" id="options-container"></div>
+                    </div>
+                    <div class="info-side">
+                        <div class="info-box box-score"><strong>❤️ Điểm:</strong><span>${qData.score}</span></div>
+                        <div class="info-box box-gift"><strong>🎁 Thưởng:</strong><span>${qData.gift}</span></div>
+                        <div class="info-box box-penalty"><strong>⚠️ Trừ điểm:</strong><span>${qData.penalty}</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="popup-footer">
-                <button class="action-btn" id="submit-btn" onclick="checkAnswer()">Xem Đáp Án</button>
-            </div>
-        `;
+                <div class="popup-footer">
+                    <button class="action-btn" id="submit-btn" onclick="checkAnswer()">Xem Đáp Án</button>
+                </div>
+            `;
 
         const optionsContainer = document.getElementById("options-container");
         const labels = ["A", "B", "C", "D"];
@@ -640,11 +645,11 @@
           if (timeLeft <= 0) {
             clearInterval(questionTimer);
 
-            // showNotification(
-            //   "error",
-            //   "Hết giờ!",
-            //   "Bạn đã hết 15 giây để trả lời câu hỏi này.",
-            // );
+            //   showNotification(
+            //     "error",
+            //     "Hết giờ!",
+            //     "Bạn đã hết 15 giây để trả lời câu hỏi này."
+            //   );
 
             if (currentCoverElement) {
               currentCoverElement.classList.add("black");
@@ -654,6 +659,7 @@
           }
         }, 1000);
       }
+
       function selectOption(btnElement, idx) {
         const allOptions = document.querySelectorAll(".option-btn");
         allOptions.forEach((opt) => opt.classList.remove("selected"));
@@ -697,7 +703,6 @@
           const submitBtn = document.getElementById("submit-btn");
           submitBtn.innerText = "Sai rồi! Đóng câu hỏi";
           submitBtn.style.background = "#555";
-          // Sửa tính năng: Khi bấm đóng popup sai, gọi hàm xử lý biến ô đỏ thành đen
           submitBtn.setAttribute("onclick", "handleWrongAnswer()");
         }
       }
@@ -712,7 +717,6 @@
         closePopup();
       }
 
-      // Hàm mới: Biến ô hiện tại thành màu đen, hiện dấu X và lưu vào danh sách sai
       function handleWrongAnswer() {
         if (currentCoverElement) {
           currentCoverElement.classList.add("black");
@@ -723,8 +727,9 @@
       }
 
       function closePopup() {
+        clearInterval(questionTimer);
         overlay.classList.remove("active");
-        // clearInterval(questionTimer);
+        // Nếu đã kích hoạt trạng thái thắng, nhấn đóng popup sẽ chuyển trang tự động
         if (isGameWon) {
           window.location.href = NEXT_PAGE;
         }
@@ -770,7 +775,7 @@
         setTimeout(() => {
           showNotification(
             "success",
-            "BẾN CẢNG NHÀ RỒNG!",
+            "BẦU CỬ!",
             "Đây là đáp án của bức tranh. Chuẩn bị chuyển sang vòng tiếp theo.",
           );
         }, 2000);
@@ -780,66 +785,6 @@
           window.location.href = NEXT_PAGE;
         }, 10000);
       }
-
-      // function checkKeyword() {
-      //   const inputField = document.getElementById("keyword-input");
-      //   const userGuess = inputField.value.trim();
-
-      //   if (userGuess === "") {
-      //     showNotification(
-      //       "warning",
-      //       "Thiếu thông tin",
-      //       "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
-      //     );
-      //     return;
-      //   }
-
-      //   const cleanUserGuess = removeVietnameseTones(userGuess)
-      //     .toLowerCase()
-      //     .replace(/\s+/g, "");
-      //   const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
-      //     .toLowerCase()
-      //     .replace(/\s+/g, "");
-
-      //   if (cleanUserGuess === cleanCorrectAnswer) {
-      //     isGameWon = true;
-
-      //     // Thắng cuộc: Gỡ bỏ toàn bộ tất cả mảnh ghép (kể cả ô đen hay ô đỏ)
-      //     const allCovers = document.querySelectorAll(".red-cover");
-      //     allCovers.forEach((cov, index) => {
-      //       setTimeout(() => {
-      //         cov.style.pointerEvents = "none";
-      //         cov.classList.remove("black"); // Gỡ màu đen ra để tạo hiệu ứng lật đồng đều
-      //         cov.classList.add("fade-out");
-      //         setTimeout(() => {
-      //           cov.remove();
-      //         }, 400);
-      //       }, index * 80);
-      //     });
-
-      //     setTimeout(() => {
-      //       showNotification(
-      //         "success",
-      //         "SUCCESS!",
-      //         `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
-      //       );
-      //     }, 800);
-
-      //     inputField.value = CORRECT_KEYWORD;
-      //   } else {
-      //     showNotification(
-      //       "error",
-      //       "Chưa chính xác",
-      //       "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
-      //     );
-      //   }
-      // }
-
-      // function handleKeyPress(event) {
-      //   if (event.key === "Enter") {
-      //     checkKeyword();
-      //   }
-      // }
     </script>
   </body>
 </html>
