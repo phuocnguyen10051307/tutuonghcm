@@ -517,6 +517,9 @@
       let currentCoverElement = null;
       let selectedOption = null;
 
+      let questionTimer = null;
+      let timeLeft = 15;
+
       // Khởi tạo lưới ô vuông
       for (let i = 1; i <= 9; i++) {
         const cell = document.createElement("div");
@@ -580,6 +583,9 @@
         popupContent.className = "popup";
         popupContent.innerHTML = `
             <div class="popup-header" id="popup-title">Đang giải mã ô số ${parseInt(coverElement.innerText)}</div>
+              <div id="timer-display" style="margin-top:10px;color:#f44336;font-size:18px;">
+      ⏳ 15s
+  </div>
             <div class="popup-body">
                 <div class="question-side">
                     <div class="question-text" id="question-text">${qData.question}</div>
@@ -608,8 +614,40 @@
         });
 
         overlay.classList.add("active");
+        startQuestionTimer();
       }
 
+      function startQuestionTimer() {
+        clearInterval(questionTimer);
+
+        timeLeft = 15;
+
+        const timerDisplay = document.getElementById("timer-display");
+
+        questionTimer = setInterval(() => {
+          timeLeft--;
+
+          if (timerDisplay) {
+            timerDisplay.innerHTML = `⏳ ${timeLeft}s`;
+          }
+
+          if (timeLeft <= 0) {
+            clearInterval(questionTimer);
+
+            // showNotification(
+            //   "error",
+            //   "Hết giờ!",
+            //   "Bạn đã hết 15 giây để trả lời câu hỏi này.",
+            // );
+
+            if (currentCoverElement) {
+              currentCoverElement.classList.add("black");
+              currentCoverElement.innerText = "✖";
+              wrongCells.add(currentCellIndex);
+            }
+          }
+        }, 1000);
+      }
       function selectOption(btnElement, idx) {
         const allOptions = document.querySelectorAll(".option-btn");
         allOptions.forEach((opt) => opt.classList.remove("selected"));
@@ -680,6 +718,7 @@
 
       function closePopup() {
         overlay.classList.remove("active");
+        // clearInterval(questionTimer);
         if (isGameWon) {
           window.location.href = NEXT_PAGE;
         }

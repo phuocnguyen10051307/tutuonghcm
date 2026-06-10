@@ -1,421 +1,560 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Mật Mã Đông Dương - Giải Mã Bức Tranh 3</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
 
-        body {
-            background-color: #111424;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            overflow: hidden;
-        }
+      body {
+        background-color: #111424;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        overflow: hidden;
+      }
 
-        h1 {
-            color: #ffcc00;
-            margin-bottom: 5px;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            font-size: 24px;
-        }
+      h1 {
+        color: #ffcc00;
+        margin-bottom: 5px;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        font-size: 24px;
+      }
 
-        p.subtitle {
-            color: #aaa;
-            font-size: 14px;
-            margin-bottom: 15px;
-        }
+      p.subtitle {
+        color: #aaa;
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
 
-        /* ---- KHU VỰC NHẬP ĐÁP ÁN ĐOÁN ẢNH ---- */
-        .guess-container {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 8px 15px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-        }
+      /* ---- KHU VỰC NHẬP ĐÁP ÁN ĐOÁN ẢNH ---- */
+      .guess-container {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 8px 15px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
+      }
 
-        .guess-input {
-            background: transparent;
-            border: none;
-            color: #fff;
-            font-size: 14px;
-            padding: 5px 10px;
-            width: 250px;
-            outline: none;
-        }
+      .guess-input {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        padding: 5px 10px;
+        width: 250px;
+        outline: none;
+      }
 
-        .guess-input::placeholder {
-            color: #777;
-        }
+      .guess-input::placeholder {
+        color: #777;
+      }
 
-        .guess-btn {
-            background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
-            color: #111424;
-            border: none;
-            padding: 8px 20px;
-            font-size: 13px;
-            font-weight: bold;
-            text-transform: uppercase;
-            border-radius: 20px;
-            cursor: pointer;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.2);
-            transition: all 0.2s ease;
-        }
+      .guess-btn {
+        background: linear-gradient(135deg, #ffcc00 0%, #ff9900 100%);
+        color: #111424;
+        border: none;
+        padding: 8px 20px;
+        font-size: 13px;
+        font-weight: bold;
+        text-transform: uppercase;
+        border-radius: 20px;
+        cursor: pointer;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        transition: all 0.2s ease;
+      }
 
-        .guess-btn:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 5px 12px rgba(255, 153, 0, 0.4);
-            filter: brightness(1.1);
-        }
+      .guess-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 5px 12px rgba(255, 153, 0, 0.4);
+        filter: brightness(1.1);
+      }
 
-        /* Khung chứa lưới game cố định kích thước 600x480 */
-        .game-container {
-            position: relative;
-            width: 600px;
-            height: 480px;
-            border: 4px solid #333;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            background-color: #0c0e1a;
-        }
+      /* Khung chứa lưới game cố định kích thước 600x480 */
+      .game-container {
+        position: relative;
+        width: 600px;
+        height: 480px;
+        border: 4px solid #333;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        background-color: #0c0e1a;
+      }
 
-        /* Lưới 3x3 */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            grid-template-rows: repeat(3, 1fr);
-            width: 100%;
-            height: 100%;
-            position: absolute;
-            top: 0;
-            left: 0;
-            z-index: 2;
-        }
+      /* Lưới 3x3 */
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+      }
 
-        /* TẦNG DƯỚI: Ô chứa mảnh ghép ảnh gốc */
-        .cell {
-            position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            background-image: url('pacbo.jpg'); /* ĐƯỜNG DẪN ẢNH MỚI PÁC BÓ */
-            background-size: 600px 480px;
-            background-repeat: no-repeat;
-            overflow: hidden;
-        }
+      /* TẦNG DƯỚI: Ô chứa mảnh ghép ảnh gốc */
+      .cell {
+        position: relative;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background-image: url("pacbo.jpg"); /* ĐƯỜNG DẪN ẢNH MỚI PÁC BÓ */
+        background-size: 600px 480px;
+        background-repeat: no-repeat;
+        overflow: hidden;
+      }
 
-        /* Định vị tọa độ cắt ảnh cho từng ô từ 0 đến 8 */
-        .cell[data-pos="0"] { background-position: 0px 0px; }
-        .cell[data-pos="1"] { background-position: -200px 0px; }
-        .cell[data-pos="2"] { background-position: -400px 0px; }
-        
-        .cell[data-pos="3"] { background-position: 0px -160px; }
-        .cell[data-pos="4"] { background-position: -200px -160px; }
-        .cell[data-pos="5"] { background-position: -400px -160px; }
-        
-        .cell[data-pos="6"] { background-position: 0px -320px; }
-        .cell[data-pos="7"] { background-position: -200px -320px; }
-        .cell[data-pos="8"] { background-position: -400px -320px; }
+      /* Định vị tọa độ cắt ảnh cho từng ô từ 0 đến 8 */
+      .cell[data-pos="0"] {
+        background-position: 0px 0px;
+      }
+      .cell[data-pos="1"] {
+        background-position: -200px 0px;
+      }
+      .cell[data-pos="2"] {
+        background-position: -400px 0px;
+      }
 
-        /* TẦNG TRÊN: Lớp phủ màu đỏ đè lên ảnh kèm số */
-        .red-cover {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: #d32f2f;
-            color: white;
-            font-size: 36px;
-            font-weight: bold;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.4s ease;
-            user-select: none;
-            z-index: 3;
-        }
+      .cell[data-pos="3"] {
+        background-position: 0px -160px;
+      }
+      .cell[data-pos="4"] {
+        background-position: -200px -160px;
+      }
+      .cell[data-pos="5"] {
+        background-position: -400px -160px;
+      }
 
-        .red-cover:hover {
-            background-color: #b71c1c;
-            transform: scale(0.98);
-        }
+      .cell[data-pos="6"] {
+        background-position: 0px -320px;
+      }
+      .cell[data-pos="7"] {
+        background-position: -200px -320px;
+      }
+      .cell[data-pos="8"] {
+        background-position: -400px -320px;
+      }
 
-        /* Hiệu ứng khi lớp đỏ bị lật mở */
-        .red-cover.fade-out {
-            opacity: 0;
-            transform: scale(0.5) rotateY(90deg);
-            pointer-events: none;
-        }
+      /* TẦNG TRÊN: Lớp phủ màu đỏ đè lên ảnh kèm số */
+      .red-cover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #d32f2f;
+        color: white;
+        font-size: 36px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        user-select: none;
+        z-index: 3;
+      }
 
-        /* KHI Ô BỊ SAI: Đổi sang màu đen đặc che hoàn toàn ảnh nền và khóa click */
-        .red-cover.black {
-            background: #000000 !important;
-            color: #ff4d4d !important;
-            cursor: not-allowed !important;
-            opacity: 1 !important;
-            pointer-events: none !important;
-        }
+      .red-cover:hover {
+        background-color: #b71c1c;
+        transform: scale(0.98);
+      }
 
-        /* ---- POPUP CÂU HỎI & THÔNG BÁO ---- */
-        .overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.75);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s ease;
-        }
+      /* Hiệu ứng khi lớp đỏ bị lật mở */
+      .red-cover.fade-out {
+        opacity: 0;
+        transform: scale(0.5) rotateY(90deg);
+        pointer-events: none;
+      }
 
-        .overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+      /* KHI Ô BỊ SAI: Đổi sang màu đen đặc che hoàn toàn ảnh nền và khóa click */
+      .red-cover.black {
+        background: #000000 !important;
+        color: #ff4d4d !important;
+        cursor: not-allowed !important;
+        opacity: 1 !important;
+        pointer-events: none !important;
+      }
 
-        .popup {
-            background: white;
-            color: #333;
-            width: 90%;
-            max-width: 550px;
-            border-radius: 12px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            position: relative;
-            transform: translateY(-20px);
-            transition: transform 0.3s ease;
-        }
+      /* ---- POPUP CÂU HỎI & THÔNG BÁO ---- */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.75);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+      }
 
-        .overlay.active .popup {
-            transform: translateY(0);
-        }
+      .overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+      }
 
-        .popup-header {
-            text-align: center;
-            color: #d32f2f;
-            font-size: 22px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            border-bottom: 2px solid #f5f5f5;
-            padding-bottom: 10px;
-        }
+      .popup {
+        background: white;
+        color: #333;
+        width: 90%;
+        max-width: 550px;
+        border-radius: 12px;
+        padding: 25px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        position: relative;
+        transform: translateY(-20px);
+        transition: transform 0.3s ease;
+      }
 
-        .popup-body {
-            display: flex;
-            gap: 20px;
-        }
+      .overlay.active .popup {
+        transform: translateY(0);
+      }
 
-        .question-side {
-            flex: 1.3;
-        }
+      .popup-header {
+        text-align: center;
+        color: #d32f2f;
+        font-size: 22px;
+        font-weight: bold;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #f5f5f5;
+        padding-bottom: 10px;
+      }
 
-        .question-text {
-            font-weight: 600;
-            margin-bottom: 15px;
-            line-height: 1.5;
-            font-size: 15px;
-        }
+      .popup-body {
+        display: flex;
+        gap: 20px;
+      }
 
-        .options {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+      .question-side {
+        flex: 1.3;
+      }
 
-        .option-btn {
-            padding: 10px 12px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            background: #f9f9f9;
-            text-align: left;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
+      .question-text {
+        font-weight: 600;
+        margin-bottom: 15px;
+        line-height: 1.5;
+        font-size: 15px;
+      }
 
-        .option-btn:hover {
-            background: #f0f0f0;
-        }
+      .options {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-        .option-btn.selected {
-            background: #e3f2fd;
-            border-color: #2196f3;
-            font-weight: bold;
-        }
+      .option-btn {
+        padding: 10px 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        background: #f9f9f9;
+        text-align: left;
+        cursor: pointer;
+        font-size: 14px;
+        transition: background 0.2s;
+      }
 
-        .info-side {
-            flex: 0.7;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+      .option-btn:hover {
+        background: #f0f0f0;
+      }
 
-        .info-box {
-            padding: 10px;
-            border-radius: 6px;
-            font-size: 13px;
-        }
-        .info-box strong { display: block; margin-bottom: 3px;}
+      .option-btn.selected {
+        background: #e3f2fd;
+        border-color: #2196f3;
+        font-weight: bold;
+      }
 
-        .box-score { background: #ffebee; color: #c62828; }
-        .box-gift { background: #e8f5e9; color: #2e7d32; }
-        .box-penalty { background: #fff3e0; color: #ef6c00; }
+      .info-side {
+        flex: 0.7;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
 
-        .popup-footer {
-            margin-top: 20px;
-            text-align: center;
-        }
+      .info-box {
+        padding: 10px;
+        border-radius: 6px;
+        font-size: 13px;
+      }
+      .info-box strong {
+        display: block;
+        margin-bottom: 3px;
+      }
 
-        .action-btn {
-            background: #e65100;
-            color: white;
-            border: none;
-            padding: 12px 30px;
-            font-size: 16px;
-            font-weight: bold;
-            border-radius: 25px;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: background 0.2s;
-        }
+      .box-score {
+        background: #ffebee;
+        color: #c62828;
+      }
+      .box-gift {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+      .box-penalty {
+        background: #fff3e0;
+        color: #ef6c00;
+      }
 
-        .action-btn:hover {
-            background: #ef6c00;
-        }
+      .popup-footer {
+        margin-top: 20px;
+        text-align: center;
+      }
 
-        /* Style dành riêng cho Popup Thông báo hệ thống */
-        .custom-popup {
-            text-align: center;
-            max-width: 420px;
-            padding: 30px 20px;
-        }
-        .popup-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-        }
-        .popup-custom-title {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 12px;
-        }
-        .popup-custom-desc {
-            font-size: 15px;
-            color: #666;
-            line-height: 1.5;
-            margin-bottom: 25px;
-        }
+      .action-btn {
+        background: #e65100;
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 25px;
+        cursor: pointer;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: background 0.2s;
+      }
+
+      .action-btn:hover {
+        background: #ef6c00;
+      }
+
+      /* Style dành riêng cho Popup Thông báo hệ thống */
+      .custom-popup {
+        text-align: center;
+        max-width: 420px;
+        padding: 30px 20px;
+      }
+      .popup-icon {
+        font-size: 50px;
+        margin-bottom: 15px;
+      }
+      .popup-custom-title {
+        font-size: 24px;
+        font-weight: bold;
+        margin-bottom: 12px;
+      }
+      .popup-custom-desc {
+        font-size: 15px;
+        color: #666;
+        line-height: 1.5;
+        margin-bottom: 25px;
+      }
     </style>
-</head>
-<body>
-
+  </head>
+  <body>
     <h1>Mật Mã Đông Dương</h1>
-    <p class="subtitle">Trả lời câu hỏi hoặc nhập từ khóa tên bức ảnh để lật mở toàn bộ!</p>
+    <p class="subtitle">
+      Trả lời câu hỏi hoặc nhập từ khóa tên bức ảnh để lật mở toàn bộ!
+    </p>
 
     <div class="guess-container">
-        <input type="text" id="keyword-input" class="guess-input" placeholder="Nhập tên bức ảnh tại đây..." onkeypress="handleKeyPress(event)">
-        <button class="guess-btn" onclick="checkKeyword()">Giải mã ngay</button>
+      <input
+        type="text"
+        id="keyword-input"
+        class="guess-input"
+        placeholder="Nhập tên bức ảnh tại đây..."
+        onkeypress="handleKeyPress(event)"
+      />
+      <button class="guess-btn" onclick="checkKeyword()">Giải mã ngay</button>
     </div>
 
     <div class="game-container">
-        <div class="grid" id="grid"></div>
+      <div class="grid" id="grid"></div>
     </div>
 
     <div class="overlay" id="overlay">
-        <div class="popup" id="popup-content"></div>
+      <div class="popup" id="popup-content"></div>
     </div>
 
     <script>
-        // --- TÊN TỪ KHÓA ĐÁP ÁN ĐOÁN HÌNH 3 ---
-        const CORRECT_KEYWORD = "BÁC HỒ Ở PÁC BÓ";
-        const NEXT_PAGE = "index4.html"; // Cấu hình chuyển sang màn hình tiếp theo
-        let isGameWon = false; // Theo dõi trạng thái hoàn thành màn chơi
+      // --- TÊN TỪ KHÓA ĐÁP ÁN ĐOÁN HÌNH 3 ---
+      const CORRECT_KEYWORD = "BÁC HỒ Ở PÁC BÓ";
+      const NEXT_PAGE = "index4.html"; // Cấu hình chuyển sang màn hình tiếp theo
+      let isGameWon = false; // Theo dõi trạng thái hoàn thành màn chơi
 
-        // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 3) ---
-        const anh3_PacBo = [
-            // CÂU DỄ (1 -> 4)
-            { question: "Khu di tích Pác Bó là nơi Bác Hồ sống và làm việc sau khi về nước, thuộc tỉnh nào của Việt Nam?", answers: ["Lạng Sơn", "Cao Bằng", "Hà Giang", "Tuyên Quang"], correct: 1, score: 100, gift: "1 kẹo", penalty: "10%" },
-            { question: "Tại khu di tích Pác Bó, hang nơi Bác Hồ từng sống và làm việc có tên gọi là gì?", answers: ["Hang Các Mác", "Hang Cốc Bó", "Hang Pác Bó", "Hang Ngườm"], correct: 1, score: 100, gift: "Không có thưởng", penalty: "0%" },
-            { question: "Suối chảy qua khu di tích Pác Bó được Bác Hồ đặt tên là suối gì?", answers: ["Suối Cấm", "Suối Lê-nin", "Suối Mác", "Suối Đồng"], correct: 1, score: 100, gift: "1 kẹo", penalty: "30%" },
-            { question: "Ngày Bác Hồ về nước sau 30 năm bôn ba (28/1/1941) diễn ra tại địa điểm nào?", answers: ["Pác Bó (Cao Bằng)", "Tân Trào (Tuyên Quang)", "Chiến khu Việt Bắc", "Cửa khẩu Móng Cái"], correct: 0, score: 100, gift: "1 kẹo", penalty: "0%" },
-            
-            // CÂU TRUNG BÌNH (5 -> 7)
-            { question: "Tại Pác Bó, Bác Hồ đã sáng tác bài thơ nổi tiếng nào?", answers: ["Cảnh rừng Pác Bó", "Tức cảnh Pác Bó", "Chiều tối", "Rằm tháng giêng"], correct: 1, score: 200, gift: "2 kẹo", penalty: "20%" },
-            { question: "Tại khu di tích Pác Bó, việc Bác Hồ đặt tên núi Các Mác và suối Lênin thể hiện tư tưởng nào?", answers: ["Tư tưởng yêu thiên nhiên và lao động", "Tư tưởng cách mạng vô sản, gắn với chủ nghĩa Mác - Lênin", "Tư tưởng dân tộc chủ nghĩa thuần túy", "Tư tưởng quân sự hóa vùng căn cứ"], correct: 1, score: 200, gift: "Không có thưởng", penalty: "40%" },
-            { question: "Bí danh “Nguyễn Ái Quốc” gắn liền với hoạt động nào của Hồ Chí Minh?", answers: ["Hoạt động tìm đường cứu nước và hoạt động tại Pháp", "Lãnh đạo khởi nghĩa giành chính quyền trong nước", "Chỉ đạo kháng chiến chống Mỹ", "Công tác xây dựng kinh tế sau hòa bình"], correct: 0, score: 200, gift: "1 bánh", penalty: "0%" },
-            
-            // CÂU KHÓ (8 -> 9)
-            { question: "Khu di tích Pác Bó ngày nay thuộc xã nào, huyện nào của tỉnh Cao Bằng?", answers: ["Xã Hưng Đạo, huyện Hà Quảng", "Xã Trường Hà, huyện Hà Quảng", "Xã Pác Bó, huyện Bảo Lạc", "Xã Đình Phong, huyện Trùng Khánh"], correct: 1, score: 300, gift: "2 kẹo", penalty: "10%" },
-            { question: "Bác Hồ đã viết cuốn 'Lịch sử nước ta' bằng thể thơ lục bát tại Pác Bó vào năm nào?", answers: ["1941", "1942", "1943", "1945"], correct: 0, score: 300, gift: "1 snack", penalty: "0%" }
-        ];
+      // --- NGÂN HÀNG CÂU HỎI MỚI (ẢNH 3) ---
+      const anh3_PacBo = [
+        // CÂU DỄ (1 -> 4)
+        {
+          question:
+            "Khu di tích Pác Bó là nơi Bác Hồ sống và làm việc sau khi về nước, thuộc tỉnh nào của Việt Nam?",
+          answers: ["Lạng Sơn", "Cao Bằng", "Hà Giang", "Tuyên Quang"],
+          correct: 1,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "10%",
+        },
+        {
+          question:
+            "Tại khu di tích Pác Bó, hang nơi Bác Hồ từng sống và làm việc có tên gọi là gì?",
+          answers: ["Hang Các Mác", "Hang Cốc Bó", "Hang Pác Bó", "Hang Ngườm"],
+          correct: 1,
+          score: 100,
+          gift: "Không có thưởng",
+          penalty: "0%",
+        },
+        {
+          question:
+            "Suối chảy qua khu di tích Pác Bó được Bác Hồ đặt tên là suối gì?",
+          answers: ["Suối Cấm", "Suối Lê-nin", "Suối Mác", "Suối Đồng"],
+          correct: 1,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "30%",
+        },
+        {
+          question:
+            "Ngày Bác Hồ về nước sau 30 năm bôn ba (28/1/1941) diễn ra tại địa điểm nào?",
+          answers: [
+            "Pác Bó (Cao Bằng)",
+            "Tân Trào (Tuyên Quang)",
+            "Chiến khu Việt Bắc",
+            "Cửa khẩu Móng Cái",
+          ],
+          correct: 0,
+          score: 100,
+          gift: "1 kẹo",
+          penalty: "0%",
+        },
 
-        const currentQuestionSet = [...anh3_PacBo];
-        const wrongCells = new Set();
+        // CÂU TRUNG BÌNH (5 -> 7)
+        {
+          question: "Tại Pác Bó, Bác Hồ đã sáng tác bài thơ nổi tiếng nào?",
+          answers: [
+            "Cảnh rừng Pác Bó",
+            "Tức cảnh Pác Bó",
+            "Chiều tối",
+            "Rằm tháng giêng",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "2 kẹo",
+          penalty: "20%",
+        },
+        {
+          question:
+            "Tại khu di tích Pác Bó, việc Bác Hồ đặt tên núi Các Mác và suối Lênin thể hiện tư tưởng nào?",
+          answers: [
+            "Tư tưởng yêu thiên nhiên và lao động",
+            "Tư tưởng cách mạng vô sản, gắn với chủ nghĩa Mác - Lênin",
+            "Tư tưởng dân tộc chủ nghĩa thuần túy",
+            "Tư tưởng quân sự hóa vùng căn cứ",
+          ],
+          correct: 1,
+          score: 200,
+          gift: "Không có thưởng",
+          penalty: "40%",
+        },
+        {
+          question:
+            "Bí danh “Nguyễn Ái Quốc” gắn liền với hoạt động nào của Hồ Chí Minh?",
+          answers: [
+            "Hoạt động tìm đường cứu nước và hoạt động tại Pháp",
+            "Lãnh đạo khởi nghĩa giành chính quyền trong nước",
+            "Chỉ đạo kháng chiến chống Mỹ",
+            "Công tác xây dựng kinh tế sau hòa bình",
+          ],
+          correct: 0,
+          score: 200,
+          gift: "1 bánh",
+          penalty: "0%",
+        },
 
-        const grid = document.getElementById('grid');
-        const overlay = document.getElementById('overlay');
-        const popupContent = document.getElementById('popup-content');
-        let currentCellIndex = null;
-        let currentCoverElement = null; 
-        let selectedOption = null;
+        // CÂU KHÓ (8 -> 9)
+        {
+          question:
+            "Khu di tích Pác Bó ngày nay thuộc xã nào, huyện nào của tỉnh Cao Bằng?",
+          answers: [
+            "Xã Hưng Đạo, huyện Hà Quảng",
+            "Xã Trường Hà, huyện Hà Quảng",
+            "Xã Pác Bó, huyện Bảo Lạc",
+            "Xã Đình Phong, huyện Trùng Khánh",
+          ],
+          correct: 1,
+          score: 300,
+          gift: "2 kẹo",
+          penalty: "10%",
+        },
+        {
+          question:
+            "Bác Hồ đã viết cuốn 'Lịch sử nước ta' bằng thể thơ lục bát tại Pác Bó vào năm nào?",
+          answers: ["1941", "1942", "1943", "1945"],
+          correct: 0,
+          score: 300,
+          gift: "1 snack",
+          penalty: "0%",
+        },
+      ];
 
-        // Khởi tạo lưới ô vuông
-        for (let i = 1; i <= 9; i++) {
-            const cell = document.createElement('div');
-            cell.classList.add('cell');
-            cell.setAttribute('data-pos', i - 1);
+      const currentQuestionSet = [...anh3_PacBo];
+      const wrongCells = new Set();
 
-            const cover = document.createElement('div');
-            cover.classList.add('red-cover');
-            cover.innerText = i;
-            
-            cover.addEventListener('click', function(e) {
-                if (wrongCells.has(i - 1)) {
-                    e.stopPropagation();
-                    return;
-                }
-                openQuestion(i - 1, cover);
-            });
+      const grid = document.getElementById("grid");
+      const overlay = document.getElementById("overlay");
+      const popupContent = document.getElementById("popup-content");
+      let currentCellIndex = null;
+      let currentCoverElement = null;
+      let selectedOption = null;
 
-            cell.appendChild(cover);
-            grid.appendChild(cell);
+      let questionTimer = null;
+      let timeLeft = 15;
+
+      // Khởi tạo lưới ô vuông
+      for (let i = 1; i <= 9; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.setAttribute("data-pos", i - 1);
+
+        const cover = document.createElement("div");
+        cover.classList.add("red-cover");
+        cover.innerText = i;
+
+        cover.addEventListener("click", function (e) {
+          if (wrongCells.has(i - 1)) {
+            e.stopPropagation();
+            return;
+          }
+          openQuestion(i - 1, cover);
+        });
+
+        cell.appendChild(cover);
+        grid.appendChild(cell);
+      }
+
+      // --- BẬT POPUP THÔNG BÁO TỰ CHẾ (THAY ALERT) ---
+      function showNotification(type, title, message) {
+        popupContent.className = "popup custom-popup";
+
+        let icon = "⚠️";
+        let btnColor = "#e65100";
+        let btnText = "Đóng";
+
+        if (type === "success") {
+          icon = "🎉";
+          btnColor = "#4caf50";
+          btnText = "Tiếp tục sang Ảnh 4 ➔"; // Thay đổi chữ trên nút bấm khi thắng cuộc
+        }
+        if (type === "error") {
+          icon = "❌";
+          btnColor = "#f44336";
         }
 
-        // --- BẬT POPUP THÔNG BÁO TỰ CHẾ (THAY ALERT) ---
-        function showNotification(type, title, message) {
-            popupContent.className = "popup custom-popup";
-            
-            let icon = "⚠️"; 
-            let btnColor = "#e65100";
-            let btnText = "Đóng";
-
-            if (type === "success") { 
-                icon = "🎉"; 
-                btnColor = "#4caf50"; 
-                btnText = "Tiếp tục sang Ảnh 4 ➔"; // Thay đổi chữ trên nút bấm khi thắng cuộc
-            }
-            if (type === "error") { icon = "❌"; btnColor = "#f44336"; }
-
-            popupContent.innerHTML = `
+        popupContent.innerHTML = `
                 <div class="popup-icon">${icon}</div>
                 <div class="popup-custom-title" style="color: ${btnColor}">${title}</div>
                 <div class="popup-custom-desc">${message}</div>
@@ -423,20 +562,23 @@
                     <button class="action-btn" style="background: ${btnColor};" onclick="closePopup()">${btnText}</button>
                 </div>
             `;
-            overlay.classList.add('active');
-        }
+        overlay.classList.add("active");
+      }
 
-        // Mở popup câu hỏi
-        function openQuestion(index, coverElement) {
-            currentCellIndex = index;
-            currentCoverElement = coverElement;
-            selectedOption = null; 
+      // Mở popup câu hỏi
+      function openQuestion(index, coverElement) {
+        currentCellIndex = index;
+        currentCoverElement = coverElement;
+        selectedOption = null;
 
-            const qData = currentQuestionSet[index];
-            
-            popupContent.className = "popup";
-            popupContent.innerHTML = `
+        const qData = currentQuestionSet[index];
+
+        popupContent.className = "popup";
+        popupContent.innerHTML = `
                 <div class="popup-header" id="popup-title">Đang giải mã ô số ${parseInt(coverElement.innerText)}</div>
+                  <div id="timer-display" style="margin-top:10px;color:#f44336;font-size:18px;">
+                    ⏳ 15s
+                </div>
                 <div class="popup-body">
                     <div class="question-side">
                         <div class="question-text" id="question-text">${qData.question}</div>
@@ -453,150 +595,208 @@
                 </div>
             `;
 
-            const optionsContainer = document.getElementById('options-container');
-            const labels = ['A', 'B', 'C', 'D'];
-            
-            qData.answers.forEach((ans, idx) => {
-                const btn = document.createElement('button');
-                btn.classList.add('option-btn');
-                btn.innerText = `${labels[idx]}. ${ans}`;
-                btn.addEventListener('click', () => selectOption(btn, idx));
-                optionsContainer.appendChild(btn);
-            });
+        const optionsContainer = document.getElementById("options-container");
+        const labels = ["A", "B", "C", "D"];
 
-            overlay.classList.add('active');
-        }
+        qData.answers.forEach((ans, idx) => {
+          const btn = document.createElement("button");
+          btn.classList.add("option-btn");
+          btn.innerText = `${labels[idx]}. ${ans}`;
+          btn.addEventListener("click", () => selectOption(btn, idx));
+          optionsContainer.appendChild(btn);
+        });
 
-        function selectOption(btnElement, idx) {
-            const allOptions = document.querySelectorAll('.option-btn');
-            allOptions.forEach(opt => opt.classList.remove('selected'));
-            btnElement.classList.add('selected');
-            selectedOption = idx;
-        }
+        overlay.classList.add("active");
+        startQuestionTimer();
+      }
 
-        function checkAnswer() {
-            if (selectedOption === null) {
-                showNotification("warning", "Nhắc nhở", "Vui lòng chọn một đáp án trước khi xem kết quả!");
-                return;
-            }
+      function startQuestionTimer() {
+        clearInterval(questionTimer);
 
-            const qData = currentQuestionSet[currentCellIndex];
-            const allOptions = document.querySelectorAll('.option-btn');
+        timeLeft = 15;
 
-            allOptions.forEach(opt => opt.style.pointerEvents = 'none');
+        const timerDisplay = document.getElementById("timer-display");
 
-            if (selectedOption === qData.correct) {
-                allOptions[selectedOption].style.background = '#4caf50';
-                allOptions[selectedOption].style.color = 'white';
-                allOptions[selectedOption].style.borderColor = '#4caf50';
-                
-                const submitBtn = document.getElementById('submit-btn');
-                submitBtn.innerText = "Chính xác - Biến mất ô đỏ!";
-                submitBtn.style.background = '#2e7d32';
-                submitBtn.setAttribute('onclick', 'revealCell()');
-            } else {
-                allOptions[selectedOption].style.background = '#f44336';
-                allOptions[selectedOption].style.color = 'white';
-                allOptions[selectedOption].style.borderColor = '#f44336';
+        questionTimer = setInterval(() => {
+          timeLeft--;
 
-                allOptions[qData.correct].style.background = '#4caf50';
-                allOptions[qData.correct].style.color = 'white';
-                allOptions[qData.correct].style.borderColor = '#4caf50';
+          if (timerDisplay) {
+            timerDisplay.innerHTML = `⏳ ${timeLeft}s`;
+          }
 
-                const submitBtn = document.getElementById('submit-btn');
-                submitBtn.innerText = "Sai rồi! Đóng câu hỏi";
-                submitBtn.style.background = '#555';
-                submitBtn.setAttribute('onclick', 'handleWrongAnswer()');
-            }
-        }
+          if (timeLeft <= 0) {
+            clearInterval(questionTimer);
 
-        function revealCell() {
+            // showNotification(
+            //   "error",
+            //   "Hết giờ!",
+            //   "Bạn đã hết 15 giây để trả lời câu hỏi này.",
+            // );
+
             if (currentCoverElement) {
-                currentCoverElement.classList.add('fade-out');
-                setTimeout(() => { currentCoverElement.remove(); }, 400);
+              currentCoverElement.classList.add("black");
+              currentCoverElement.innerText = "✖";
+              wrongCells.add(currentCellIndex);
             }
-            closePopup();
+          }
+        }, 1000);
+      }
+
+      function selectOption(btnElement, idx) {
+        const allOptions = document.querySelectorAll(".option-btn");
+        allOptions.forEach((opt) => opt.classList.remove("selected"));
+        btnElement.classList.add("selected");
+        selectedOption = idx;
+      }
+
+      function checkAnswer() {
+        if (selectedOption === null) {
+          showNotification(
+            "warning",
+            "Nhắc nhở",
+            "Vui lòng chọn một đáp án trước khi xem kết quả!",
+          );
+          return;
         }
 
-        function handleWrongAnswer() {
-            if (currentCoverElement) {
-                currentCoverElement.classList.add('black');
-                currentCoverElement.innerText = '✖';
-                wrongCells.add(currentCellIndex);
-            }
-            closePopup();
+        const qData = currentQuestionSet[currentCellIndex];
+        const allOptions = document.querySelectorAll(".option-btn");
+
+        allOptions.forEach((opt) => (opt.style.pointerEvents = "none"));
+
+        if (selectedOption === qData.correct) {
+          allOptions[selectedOption].style.background = "#4caf50";
+          allOptions[selectedOption].style.color = "white";
+          allOptions[selectedOption].style.borderColor = "#4caf50";
+
+          const submitBtn = document.getElementById("submit-btn");
+          submitBtn.innerText = "Chính xác - Biến mất ô đỏ!";
+          submitBtn.style.background = "#2e7d32";
+          submitBtn.setAttribute("onclick", "revealCell()");
+        } else {
+          allOptions[selectedOption].style.background = "#f44336";
+          allOptions[selectedOption].style.color = "white";
+          allOptions[selectedOption].style.borderColor = "#f44336";
+
+          allOptions[qData.correct].style.background = "#4caf50";
+          allOptions[qData.correct].style.color = "white";
+          allOptions[qData.correct].style.borderColor = "#4caf50";
+
+          const submitBtn = document.getElementById("submit-btn");
+          submitBtn.innerText = "Sai rồi! Đóng câu hỏi";
+          submitBtn.style.background = "#555";
+          submitBtn.setAttribute("onclick", "handleWrongAnswer()");
+        }
+      }
+
+      function revealCell() {
+        if (currentCoverElement) {
+          currentCoverElement.classList.add("fade-out");
+          setTimeout(() => {
+            currentCoverElement.remove();
+          }, 400);
+        }
+        closePopup();
+      }
+
+      function handleWrongAnswer() {
+        if (currentCoverElement) {
+          currentCoverElement.classList.add("black");
+          currentCoverElement.innerText = "✖";
+          wrongCells.add(currentCellIndex);
+        }
+        closePopup();
+      }
+
+      function closePopup() {
+        clearInterval(questionTimer);
+        overlay.classList.remove("active");
+        // Nếu đã kích hoạt trạng thái thắng, nhấn đóng popup sẽ chuyển trang tự động
+        if (isGameWon) {
+          window.location.href = NEXT_PAGE;
+        }
+      }
+
+      // --- XỬ LÝ ĐOÁN TỪ KHÓA TÊN BỨC ẢNH ---
+      function removeVietnameseTones(str) {
+        str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+        str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+        str = str.replace(/ì|í|ị|ỉ|ã/g, "i");
+        str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+        str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+        str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+        str = str.replace(/đ/g, "d");
+        str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
+        str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|ễ/g, "E");
+        str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
+        str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
+        str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
+        str = str.replace(/Ỳ|Ý|Y|Ỷ|Ỹ/g, "Y");
+        str = str.replace(/Đ/g, "D");
+        str = str.replace(/[^a-zA-Z0-9 ]/g, "");
+        return str;
+      }
+
+      function checkKeyword() {
+        const inputField = document.getElementById("keyword-input");
+        const userGuess = inputField.value.trim();
+
+        if (userGuess === "") {
+          showNotification(
+            "warning",
+            "Thiếu thông tin",
+            "Vui lòng nhập tên bức ảnh trước khi kiểm tra!",
+          );
+          return;
         }
 
-        function closePopup() {
-            overlay.classList.remove('active');
-            // Nếu đã kích hoạt trạng thái thắng, nhấn đóng popup sẽ chuyển trang tự động
-            if (isGameWon) {
-                window.location.href = NEXT_PAGE;
-            }
+        const cleanUserGuess = removeVietnameseTones(userGuess)
+          .toLowerCase()
+          .replace(/\s+/g, "");
+        const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD)
+          .toLowerCase()
+          .replace(/\s+/g, "");
+
+        if (cleanUserGuess === cleanCorrectAnswer) {
+          isGameWon = true; // Kích hoạt cờ chuyển trang
+
+          // Thắng cuộc: Mở toàn bộ các mảnh ghép gợn sóng
+          const allCovers = document.querySelectorAll(".red-cover");
+          allCovers.forEach((cov, index) => {
+            setTimeout(() => {
+              cov.style.pointerEvents = "none";
+              cov.classList.remove("black");
+              cov.classList.add("fade-out");
+              setTimeout(() => {
+                cov.remove();
+              }, 400);
+            }, index * 80);
+          });
+
+          // Hiện Popup Success thành công đồng bộ
+          setTimeout(() => {
+            showNotification(
+              "success",
+              "SUCCESS!",
+              `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`,
+            );
+          }, 800);
+
+          inputField.value = CORRECT_KEYWORD;
+        } else {
+          showNotification(
+            "error",
+            "Chưa chính xác",
+            "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.",
+          );
         }
+      }
 
-        // --- XỬ LÝ ĐOÁN TỪ KHÓA TÊN BỨC ẢNH ---
-        function removeVietnameseTones(str) {
-            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g,"a");
-            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g,"e");
-            str = str.replace(/ì|í|ị|ỉ|ã/g,"i");
-            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g,"o");
-            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g,"u");
-            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g,"y");
-            str = str.replace(/đ/g,"d");
-            str = str.replace(/À|Á|Ạ|Ả|Ã|Â|Ầ|Ấ|Ậ|Ẩ|Ẫ|Ă|Ằ|Ắ|Ặ|Ẳ|Ẵ/g, "A");
-            str = str.replace(/È|É|Ẹ|Ẻ|Ẽ|Ê|Ề|Ế|Ệ|Ể|ễ/g, "E");
-            str = str.replace(/Ì|Í|Ị|Ỉ|Ĩ/g, "I");
-            str = str.replace(/Ò|Ó|Ọ|Ỏ|Õ|Ô|Ồ|Ố|Ộ|Ổ|Ỗ|Ơ|Ờ|Ớ|Ợ|Ở|Ỡ/g, "O");
-            str = str.replace(/Ù|Ú|Ụ|Ủ|Ũ|Ư|Ừ|Ứ|Ự|Ử|Ữ/g, "U");
-            str = str.replace(/Ỳ|Ý|Y|Ỷ|Ỹ/g, "Y");
-            str = str.replace(/Đ/g, "D");
-            str = str.replace(/[^a-zA-Z0-9 ]/g, "");
-            return str;
+      function handleKeyPress(event) {
+        if (event.key === "Enter") {
+          checkKeyword();
         }
-
-        function checkKeyword() {
-            const inputField = document.getElementById('keyword-input');
-            const userGuess = inputField.value.trim();
-
-            if (userGuess === "") {
-                showNotification("warning", "Thiếu thông tin", "Vui lòng nhập tên bức ảnh trước khi kiểm tra!");
-                return;
-            }
-
-            const cleanUserGuess = removeVietnameseTones(userGuess).toLowerCase().replace(/\s+/g, '');
-            const cleanCorrectAnswer = removeVietnameseTones(CORRECT_KEYWORD).toLowerCase().replace(/\s+/g, '');
-
-            if (cleanUserGuess === cleanCorrectAnswer) {
-                isGameWon = true; // Kích hoạt cờ chuyển trang
-
-                // Thắng cuộc: Mở toàn bộ các mảnh ghép gợn sóng
-                const allCovers = document.querySelectorAll('.red-cover');
-                allCovers.forEach((cov, index) => {
-                    setTimeout(() => {
-                        cov.style.pointerEvents = 'none';
-                        cov.classList.remove('black');
-                        cov.classList.add('fade-out');
-                        setTimeout(() => { cov.remove(); }, 400);
-                    }, index * 80);
-                });
-
-                // Hiện Popup Success thành công đồng bộ
-                setTimeout(() => {
-                    showNotification("success", "SUCCESS!", `Chúc mừng bạn đã giải mã thành công bức tranh lịch sử ẩn giấu mang tên:<br><strong style="color: #2e7d32; font-size: 18px;">${CORRECT_KEYWORD}</strong>`);
-                }, 800);
-
-                inputField.value = CORRECT_KEYWORD;
-            } else {
-                showNotification("error", "Chưa chính xác", "Mật mã chưa chính xác rồi! Hãy tiếp tục lật mở thêm các ô số để tìm gợi ý nhé.");
-            }
-        }
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                checkKeyword();
-            }
-        }
+      }
     </script>
-</body>
+  </body>
 </html>
